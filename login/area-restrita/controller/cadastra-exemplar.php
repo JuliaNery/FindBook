@@ -8,6 +8,8 @@
 
     $Biblioteca = new Biblioteca(); 
     $StatusExemplar = new StatusExemplar(); 
+    $Exemplar = new Exemplar();
+    $Livro = new Livro();
 
 
     $Exemplar->setNumExemplar($_POST['txtNumExemplar']);
