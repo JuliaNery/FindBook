@@ -85,7 +85,7 @@
 						<h3><?php foreach ($qtdLivro as $livro) {
                             echo ($livro['qtd']);
                         }?></h3>
-						<p>Livros</p>
+						<p>Livro</p>
 					</span>
 				</li>
 				<li>

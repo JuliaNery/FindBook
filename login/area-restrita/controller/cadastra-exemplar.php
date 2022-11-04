@@ -5,8 +5,7 @@
 
     session_start();
 
-    $Exemplar = new Exemplar();
-    $Livro = new Livro();
+
     $Biblioteca = new Biblioteca(); 
     $StatusExemplar = new StatusExemplar(); 
 

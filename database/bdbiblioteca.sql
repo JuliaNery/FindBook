@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18-Out-2022 às 21:21
+-- Tempo de geração: 03-Nov-2022 às 21:33
 -- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.13
+-- versão do PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,6 +32,14 @@ CREATE TABLE `tbautor` (
   `nomeAutor` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `tbautor`
+--
+
+INSERT INTO `tbautor` (`idAutor`, `nomeAutor`) VALUES
+(1, 'john green'),
+(2, 'jojo moyes');
+
 -- --------------------------------------------------------
 
 --
@@ -40,6 +48,7 @@ CREATE TABLE `tbautor` (
 
 CREATE TABLE `tbbiblioteca` (
   `idBiblioteca` int(11) NOT NULL,
+  `fotoBiblioteca` blob NOT NULL,
   `nomeBiblioteca` varchar(60) NOT NULL,
   `ruaBiblioteca` varchar(35) NOT NULL,
   `numBiblioteca` varchar(10) NOT NULL,
@@ -47,9 +56,19 @@ CREATE TABLE `tbbiblioteca` (
   `cepBiblioteca` char(9) NOT NULL,
   `bairroBiblioteca` varchar(35) NOT NULL,
   `cidadeBiblioteca` varchar(30) NOT NULL,
+  `horarioAbertura` time NOT NULL,
+  `horarioFechamento` time NOT NULL,
   `emailBiblioteca` varchar(60) NOT NULL,
   `senhaBiblioteca` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `tbbiblioteca`
+--
+
+INSERT INTO `tbbiblioteca` (`idBiblioteca`, `fotoBiblioteca`, `nomeBiblioteca`, `ruaBiblioteca`, `numBiblioteca`, `compBiblioteca`, `cepBiblioteca`, `bairroBiblioteca`, `cidadeBiblioteca`, `horarioAbertura`, `horarioFechamento`, `emailBiblioteca`, `senhaBiblioteca`) VALUES
+(3, '', 'Cora Coralina', 'Rua Otelo Augusto Ribeiro', '113', '', '08412-000', 'Guaianazes', 'São Paulo', '08:00:00', '16:00:00', 'coracoralina@gmail.com', '123456'),
+(4, '', 'Mario de Andrade', 'Rua da Consolação', '94', '', '01302-000', 'Republica', 'São Paulo', '00:00:00', '00:00:00', 'marioandrade@gmail.com', '123456');
 
 -- --------------------------------------------------------
 
@@ -62,6 +81,13 @@ CREATE TABLE `tbeditora` (
   `nomeEditora` char(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `tbeditora`
+--
+
+INSERT INTO `tbeditora` (`idEditora`, `nomeEditora`) VALUES
+(1, 'intrinseca');
+
 -- --------------------------------------------------------
 
 --
@@ -70,10 +96,35 @@ CREATE TABLE `tbeditora` (
 
 CREATE TABLE `tbexemplar` (
   `idExemplar` int(11) NOT NULL,
-  `numExemplar` int(11) NOT NULL,
-  `idLivro` int(11) NOT NULL,
-  `idBiblioteca` int(11) NOT NULL
+  `numExemplar` int(11) DEFAULT NULL,
+  `idBiblioteca` int(11) NOT NULL,
+  `idLivro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `tbexemplar`
+--
+
+INSERT INTO `tbexemplar` (`idExemplar`, `numExemplar`, `idBiblioteca`, `idLivro`) VALUES
+(1, 456, 3, 2),
+(3, 455, 3, 2),
+(4, 123, 3, 1),
+(5, 485, 3, 1),
+(6, 459, 3, 3),
+(7, 171, 3, 3),
+(8, 157, 3, 3),
+(9, 155, 3, 3),
+(11, 180, 4, 3),
+(12, 159, 4, 3),
+(13, 1, 4, 1),
+(14, 2, 4, 1),
+(17, 3, 4, 1),
+(18, 4, 4, 1),
+(19, 9, 4, 1),
+(20, 8, 4, 1),
+(23, 1000, 4, 1),
+(24, 44, 4, 1),
+(26, 39, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -86,6 +137,13 @@ CREATE TABLE `tbgenero` (
   `nomeGenero` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `tbgenero`
+--
+
+INSERT INTO `tbgenero` (`idGenero`, `nomeGenero`) VALUES
+(1, 'romance');
+
 -- --------------------------------------------------------
 
 --
@@ -96,7 +154,7 @@ CREATE TABLE `tbleitor` (
   `idLeitor` int(11) NOT NULL,
   `fotoLeitor` blob DEFAULT NULL,
   `nomeLeitor` varchar(60) NOT NULL,
-  `emailLeitor` varchar(60) NOT NULL,
+  `emailLeitor` varchar(120) NOT NULL,
   `cpfLeitor` char(14) NOT NULL,
   `rgLeitor` char(12) NOT NULL,
   `dtNascLeitor` date NOT NULL,
@@ -104,6 +162,14 @@ CREATE TABLE `tbleitor` (
   `loginLeitor` varchar(25) NOT NULL,
   `senhaLeitor` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `tbleitor`
+--
+
+INSERT INTO `tbleitor` (`idLeitor`, `fotoLeitor`, `nomeLeitor`, `emailLeitor`, `cpfLeitor`, `rgLeitor`, `dtNascLeitor`, `generoLeitor`, `loginLeitor`, `senhaLeitor`) VALUES
+(1, NULL, 'Leandro Santos', 'leandro@gmail.com', '', '', '0000-00-00', '', '', '123456'),
+(2, NULL, 'julinha', 'julia@gmail.com', '', '', '0000-00-00', '', '', '123456');
 
 -- --------------------------------------------------------
 
@@ -113,15 +179,24 @@ CREATE TABLE `tbleitor` (
 
 CREATE TABLE `tblivro` (
   `idLivro` int(11) NOT NULL,
-  `capaLivro` blob NOT NULL,
-  `nomeLivro` varchar(45) NOT NULL,
-  `sinopseLivro` varchar(1000) NOT NULL,
-  `dtLancamento` date NOT NULL,
-  `faixaetaria` varchar(5) NOT NULL DEFAULT 'Livre',
-  `idAutor` int(11) NOT NULL,
-  `idEditora` int(11) NOT NULL,
-  `idGenero` int(11) NOT NULL
+  `capaLivro` blob DEFAULT NULL,
+  `nomeLivro` varchar(120) DEFAULT NULL,
+  `sinopseLivro` varchar(1000) DEFAULT NULL,
+  `dtLancamento` date DEFAULT NULL,
+  `faixaEtaria` tinyint(2) DEFAULT NULL,
+  `idAutor` int(6) NOT NULL,
+  `idGenero` int(6) NOT NULL,
+  `idEditora` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `tblivro`
+--
+
+INSERT INTO `tblivro` (`idLivro`, `capaLivro`, `nomeLivro`, `sinopseLivro`, `dtLancamento`, `faixaEtaria`, `idAutor`, `idGenero`, `idEditora`) VALUES
+(1, '', 'a culpa é das estrelas', 'kdsjllllllllj', '2022-10-12', 12, 1, 1, 1),
+(2, '', 'a culpa é das estrelas 2', 'kdsjllllllllj', '2022-10-12', 12, 1, 1, 1),
+(3, NULL, 'Como eu era antes de você', 'Will Traynor, de 35 anos, é inteligente, rico e mal-humorado. Preso a uma cadeira de rodas depois de um acidente de moto, o antes ativo e esportivo Will desconta toda a sua amargura em quem estiver por perto e planeja dar um fim ao seu sofrimento. O que Will não sabe é que Lou está prestes a trazer cor a sua vida.', '2012-01-05', 14, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -145,9 +220,18 @@ CREATE TABLE `tblivroalugado` (
 
 CREATE TABLE `tbstatusexemplar` (
   `idStatusExemplar` int(11) NOT NULL,
-  `statusExemplar` tinyint(1) DEFAULT NULL,
+  `statusExemplar` tinyint(1) DEFAULT 1,
   `idExemplar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `tbstatusexemplar`
+--
+
+INSERT INTO `tbstatusexemplar` (`idStatusExemplar`, `statusExemplar`, `idExemplar`) VALUES
+(1, 1, 0),
+(5, 1, 24),
+(6, 1, 26);
 
 -- --------------------------------------------------------
 
@@ -164,40 +248,27 @@ CREATE TABLE `tbtelbiblioteca` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbtelleitor`
+-- Estrutura stand-in para vista `vwexemplar`
+-- (Veja abaixo para a view atual)
 --
-
-CREATE TABLE `tbtelleitor` (
-  `idTelLeitor` int(11) NOT NULL,
-  `numTelLeitor` char(14) NOT NULL,
-  `idLeitor` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `vwexemplar` (
+`nomeLivro` varchar(120)
+,`numExemplar` int(11)
+,`nomeAutor` varchar(60)
+,`nomeEditora` char(30)
+,`nomeGenero` varchar(20)
+,`faixaEtaria` tinyint(2)
+,`nomeBiblioteca` varchar(60)
+);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbuserbiblioteca`
+-- Estrutura para vista `vwexemplar`
 --
+DROP TABLE IF EXISTS `vwexemplar`;
 
-CREATE TABLE `tbuserbiblioteca` (
-  `idUserBiblioteca` int(11) NOT NULL,
-  `loginUserBiblioteca` varchar(25) NOT NULL,
-  `senhaUserBiblioteca` varchar(20) NOT NULL,
-  `idBiblioteca` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tbuserleitor`
---
-
-CREATE TABLE `tbuserleitor` (
-  `idUserLeitor` int(11) NOT NULL,
-  `loginUserLeitor` varchar(40) NOT NULL,
-  `senhaUserLeitor` varchar(20) NOT NULL,
-  `idLeitor` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwexemplar`  AS SELECT `tblivro`.`nomeLivro` AS `nomeLivro`, `tbexemplar`.`numExemplar` AS `numExemplar`, `tbautor`.`nomeAutor` AS `nomeAutor`, `tbeditora`.`nomeEditora` AS `nomeEditora`, `tbgenero`.`nomeGenero` AS `nomeGenero`, `tblivro`.`faixaEtaria` AS `faixaEtaria`, `tbbiblioteca`.`nomeBiblioteca` AS `nomeBiblioteca` FROM (((((`tbexemplar` join `tblivro` on(`tbexemplar`.`idLivro` = `tblivro`.`idLivro`)) join `tbautor` on(`tblivro`.`idAutor` = `tbautor`.`idAutor`)) join `tbeditora` on(`tblivro`.`idEditora` = `tbeditora`.`idEditora`)) join `tbgenero` on(`tblivro`.`idGenero` = `tbgenero`.`idGenero`)) join `tbbiblioteca` on(`tbexemplar`.`idBiblioteca` = `tbbiblioteca`.`idBiblioteca`)) ;
 
 --
 -- Índices para tabelas despejadas
@@ -213,7 +284,8 @@ ALTER TABLE `tbautor`
 -- Índices para tabela `tbbiblioteca`
 --
 ALTER TABLE `tbbiblioteca`
-  ADD PRIMARY KEY (`idBiblioteca`);
+  ADD PRIMARY KEY (`idBiblioteca`),
+  ADD UNIQUE KEY `emailBiblioteca` (`emailBiblioteca`);
 
 --
 -- Índices para tabela `tbeditora`
@@ -226,8 +298,9 @@ ALTER TABLE `tbeditora`
 --
 ALTER TABLE `tbexemplar`
   ADD PRIMARY KEY (`idExemplar`),
-  ADD UNIQUE KEY `idLivro` (`idLivro`),
-  ADD UNIQUE KEY `idBiblioteca` (`idBiblioteca`);
+  ADD UNIQUE KEY `numExemplar` (`numExemplar`),
+  ADD KEY `idBiblioteca` (`idBiblioteca`),
+  ADD KEY `idLivro` (`idLivro`);
 
 --
 -- Índices para tabela `tbgenero`
@@ -239,16 +312,17 @@ ALTER TABLE `tbgenero`
 -- Índices para tabela `tbleitor`
 --
 ALTER TABLE `tbleitor`
-  ADD PRIMARY KEY (`idLeitor`);
+  ADD PRIMARY KEY (`idLeitor`),
+  ADD UNIQUE KEY `emailLeitor` (`emailLeitor`);
 
 --
 -- Índices para tabela `tblivro`
 --
 ALTER TABLE `tblivro`
   ADD PRIMARY KEY (`idLivro`),
-  ADD UNIQUE KEY `idAutor` (`idAutor`),
-  ADD UNIQUE KEY `idEditora` (`idEditora`),
-  ADD UNIQUE KEY `idGenero` (`idGenero`);
+  ADD KEY `idAutor` (`idAutor`),
+  ADD KEY `idGenero` (`idGenero`),
+  ADD KEY `idEditora` (`idEditora`);
 
 --
 -- Índices para tabela `tblivroalugado`
@@ -273,27 +347,6 @@ ALTER TABLE `tbtelbiblioteca`
   ADD UNIQUE KEY `idBiblioteca` (`idBiblioteca`);
 
 --
--- Índices para tabela `tbtelleitor`
---
-ALTER TABLE `tbtelleitor`
-  ADD PRIMARY KEY (`idTelLeitor`),
-  ADD UNIQUE KEY `idLeitor` (`idLeitor`);
-
---
--- Índices para tabela `tbuserbiblioteca`
---
-ALTER TABLE `tbuserbiblioteca`
-  ADD PRIMARY KEY (`idUserBiblioteca`),
-  ADD UNIQUE KEY `idBiblioteca` (`idBiblioteca`);
-
---
--- Índices para tabela `tbuserleitor`
---
-ALTER TABLE `tbuserleitor`
-  ADD PRIMARY KEY (`idUserLeitor`),
-  ADD UNIQUE KEY `idLeitor` (`idLeitor`);
-
---
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
@@ -301,43 +354,43 @@ ALTER TABLE `tbuserleitor`
 -- AUTO_INCREMENT de tabela `tbautor`
 --
 ALTER TABLE `tbautor`
-  MODIFY `idAutor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAutor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `tbbiblioteca`
 --
 ALTER TABLE `tbbiblioteca`
-  MODIFY `idBiblioteca` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idBiblioteca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `tbeditora`
 --
 ALTER TABLE `tbeditora`
-  MODIFY `idEditora` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEditora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `tbexemplar`
 --
 ALTER TABLE `tbexemplar`
-  MODIFY `idExemplar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idExemplar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de tabela `tbgenero`
 --
 ALTER TABLE `tbgenero`
-  MODIFY `idGenero` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idGenero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `tbleitor`
 --
 ALTER TABLE `tbleitor`
-  MODIFY `idLeitor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idLeitor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `tblivro`
 --
 ALTER TABLE `tblivro`
-  MODIFY `idLivro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idLivro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `tblivroalugado`
@@ -349,7 +402,7 @@ ALTER TABLE `tblivroalugado`
 -- AUTO_INCREMENT de tabela `tbstatusexemplar`
 --
 ALTER TABLE `tbstatusexemplar`
-  MODIFY `idStatusExemplar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idStatusExemplar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `tbtelbiblioteca`
@@ -358,22 +411,23 @@ ALTER TABLE `tbtelbiblioteca`
   MODIFY `idTelBiblioteca` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `tbtelleitor`
+-- Restrições para despejos de tabelas
 --
-ALTER TABLE `tbtelleitor`
-  MODIFY `idTelLeitor` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `tbuserbiblioteca`
+-- Limitadores para a tabela `tbexemplar`
 --
-ALTER TABLE `tbuserbiblioteca`
-  MODIFY `idUserBiblioteca` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tbexemplar`
+  ADD CONSTRAINT `tbexemplar_ibfk_1` FOREIGN KEY (`idBiblioteca`) REFERENCES `tbbiblioteca` (`idBiblioteca`),
+  ADD CONSTRAINT `tbexemplar_ibfk_2` FOREIGN KEY (`idLivro`) REFERENCES `tblivro` (`idLivro`);
 
 --
--- AUTO_INCREMENT de tabela `tbuserleitor`
+-- Limitadores para a tabela `tblivro`
 --
-ALTER TABLE `tbuserleitor`
-  MODIFY `idUserLeitor` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tblivro`
+  ADD CONSTRAINT `tblivro_ibfk_1` FOREIGN KEY (`idAutor`) REFERENCES `tbautor` (`idAutor`),
+  ADD CONSTRAINT `tblivro_ibfk_2` FOREIGN KEY (`idGenero`) REFERENCES `tbgenero` (`idGenero`),
+  ADD CONSTRAINT `tblivro_ibfk_3` FOREIGN KEY (`idEditora`) REFERENCES `tbeditora` (`idEditora`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

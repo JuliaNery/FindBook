@@ -39,5 +39,18 @@
         public function setIdBiblioteca($idBiblioteca){
             $this->idBiblioteca = $idBiblioteca;
         }
+
+        public function cadastrar($TelBiblioteca){
+            $conexao = Conexao::conectar();
+
+            $stmt = $conexao->prepare("INSERT INTO tbTelBiblioteca(numTelBiblioteca, numcelBiblioteca, idBiblioteca) 
+            VALUES(?, ?, ?)");
+
+            $stmt->bindValue(1, $TelBiblioteca->getNumTelBiblioteca());
+            $stmt->bindValue(2, $TelBiblioteca->getNumelBiblioteca());
+            $stmt->bindValue(3, $TelBiblioteca->getIdBiblioteca()->getIdBiblioteca());
+            
+            $stmt->execute();
+        }
     }
 ?>

@@ -149,27 +149,13 @@
         public function update($Biblioteca){
             $conexao = Conexao::conectar();
             
-            $stmt = $conexao->prepare("UPDATE tbBiblioteca (nomeBiblioteca, 
-            ruaBiblioteca, numBiblioteca, compBiblioteca, cepBiblioteca, bairroBiblioteca, cidadeBiblioteca, horarioAbertura, horarioFechamento) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $conexao->prepare("UPDATE tbBiblioteca (nomeBiblioteca, horarioAbertura, horarioFechamento, emailBiblioteca) 
+            VALUES (?, ?, ?, ?)");
 
             $stmt->bindValue(1, $Biblioteca->getNomeBiblioteca());
-                        
-            $stmt->bindValue(2, $Biblioteca->getRuaBiblioteca());
-
-            $stmt->bindValue(3, $Biblioteca->getNumBiblioteca());
-
-            $stmt->bindValue(4, $Biblioteca->getCompBiblioteca());
-
-            $stmt->bindValue(5, $Biblioteca->getCepBiblioteca());
-
-            $stmt->bindValue(6, $Biblioteca->getBairroBiblioteca());
-
-            $stmt->bindValue(7, $Biblioteca->getCidadeBiblioteca());
-
-            $stmt->bindValue(8, $Biblioteca->getHorarioAbertura());
-
-            $stmt->bindValue(9, $Biblioteca->getHorarioFechamento());
+            $stmt->bindValue(2, $Biblioteca->getHorarioAbertura());
+            $stmt->bindValue(3, $Biblioteca->getHorarioFechamento());
+            $stmt->bindValue(4, $Biblioteca->getEmailBiblioteca());
 
             $stmt->execute();
         }

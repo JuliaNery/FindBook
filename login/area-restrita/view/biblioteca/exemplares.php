@@ -23,7 +23,6 @@ try {
 	<link rel="stylesheet" href="css/styleExemplares.css">
 	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 	<title>biblioteca Exemplares</title>
-
 	<link rel="icon" href="img/logopjt.png">
 </head>
 

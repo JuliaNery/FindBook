@@ -74,12 +74,13 @@ include_once('../../controller/valida-biblioteca.php');
 						<h3 class="titulo">Biblioteca <?php echo $_SESSION['nomeBiblioteca'] ?></h3>
 						<div class="perfil-usuario-footer">
 							<ul class="lista-datos">
-								<li><i class="icono fas fa-phone-alt"></i>Numero </li>
+								<li><i class="icono fas fa-user-check"></i><?php echo $_SESSION['emailBiblioteca'] ?></li>
 								<li><i class="icono fas fa-calendar-alt"></i>Abertura <?php echo $_SESSION['horarioAbertura'] ?></li>
 								<li><i class="icono fas fa-calendar-alt"></i>Fechamento<?php echo $_SESSION['horarioFechamento'] ?></li>
 							</ul>
 							<ul class="lista-datos">
-								<li><i class="icono fas fa-user-check"></i><?php echo $_SESSION['emailBiblioteca'] ?></li>
+								<li><i class="icono fas fa-phone-alt"></i>celular </li>
+								<li><i class="icono fas fa-phone-alt"></i>Numero </li>
 								<li><i class="icono fas fa-map-marker-alt"></i>Localização</li>
 							</ul>
 						</div>
@@ -98,7 +99,7 @@ include_once('../../controller/valida-biblioteca.php');
 						<h2>Edite seu perfil</h2>
 					</center>
 					<hr />
-					<form action="#" method="post">
+					<form action="../../controller/update-biblioteca.php" method="post">
 						<div class="form first">
 							<div class="details personal"><br>
 								<p>As informações adicionadas abaixo apareceram em seu perfil:</p>
@@ -125,27 +126,27 @@ include_once('../../controller/valida-biblioteca.php');
 							<div class="fields">
 								<div class="input-field">
 									<label> Nome:</label>
-									<input type="text" placeholder="Nome">
+									<input type="text" name="nome" placeholder="Nome">
 								</div>
 								<div class="input-field">
 									<label>Email: </label>
-									<input type="text" placeholder="Nome">
+									<input type="text" name="email" placeholder="Email">
 								</div>
 								<div class="input-field">
 									<label>Horario Abertura:</label>
-									<input type="time" placeholder="Nome">
+									<input type="time" name="abertura" >
 								</div>
 								<div class="input-field">
 									<label>Horario Fechamento:</label>
-									<input type="time" placeholder="Nome">
+									<input type="time" name="fechamento" >
 								</div>
 								<div class="input-field">
 									<label>Telefone</label>
-									<input type="text" id="telefone" maxlength="10" placeholder="(11) 1111-1111">
+									<input type="text" id="telefone" name="telefone" maxlength="10" placeholder="(11) 1111-1111">
 								</div>
 								<div class="input-field">
 									<label>Celular</label>
-									<input type="text" id="telefone" maxlength="11" placeholder="(11) 91111-1111">
+									<input type="text" id="telefone" name="celular" maxlength="11" placeholder="(11) 91111-1111">
 								</div>
 							</div>
 						</div>
