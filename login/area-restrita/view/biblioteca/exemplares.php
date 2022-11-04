@@ -88,8 +88,8 @@ try {
 								<th>Autor</th>
 								<th>Genêro</th>
 								<th>Faixa Etária</th>
-								<th>Excluir</th>
 								<th>Situação</th>
+								<th>Excluir</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -106,10 +106,8 @@ try {
 									<td><?php echo $linhas['nomeAutor'] ?></td>
 									<td><?php echo $linhas['nomeGenero'] ?></td>
 									<td><?php echo $linhas['faixaEtaria'] ?></td>
-									<td><button onclick="openModal2()" class="button button3">Excluir</button></td>
-									<!-- <td><a href="#" onclick="openModal2()">Excluir</a></td> -->
-									<!-- <td><a href="">disponivel</a></td> -->
 									<td><button onclick="openModal3()" class="button button3">disponivel</button></td>
+									<td><button onclick="openModal2()" class="button button3">Excluir</button></td>
 								</tr>
 							<?php } ?>
 						</tbody>
@@ -237,7 +235,7 @@ try {
 				</span>
 
 				<div class="btns">
-					<button class="btnOK01" onclick="closeModal01()">sair</button>
+				<a href="../../../logout.php"><button class="btnOK01" onclick="closeModal01()">sair</button></a>
 					<button class="btnClose01" onclick="closeModal01()">fechar</button>
 				</div>
 			</div>
