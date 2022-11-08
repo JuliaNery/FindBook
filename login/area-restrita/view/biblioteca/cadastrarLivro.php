@@ -153,7 +153,7 @@ try {
 					<input type="text" name="txtNomeAutor" placeholder="Digite aqui" required>
 				</div>
 				<div class="btns">
-					<button class="btnOK" onclick="closeModal()">Cadastrar</button>
+				<a href="../../../logout.php"><button class="btnOK" onclick="closeModal()">Cadastrar</button></a>
 					<button class="btnClose" onclick="closeModal()">Fechar</button>
 				</div>
 			</form>

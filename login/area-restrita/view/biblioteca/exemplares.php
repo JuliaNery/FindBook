@@ -96,7 +96,7 @@ try {
 								<tr>
 									<td>
 										<div class="user">
-											<img class="user-image" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="">
+											<img class="user-image" src="img/livro.jpg" alt="">
 										</div>
 									</td>
 									<td><?php echo $linhas['nomeLivro'] ?></td>

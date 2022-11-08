@@ -3,6 +3,7 @@
         
             require('../area-restrita/model/conexao.php');
             require('../area-restrita/model/leitor.php');
+            session_start();
 
             $leitor = new Leitor();
 
@@ -11,7 +12,7 @@
 
             if($leitor->login($email, $senha) == true){
                 if(isset($_SESSION['idLeitor'])){
-                    header('Location: ../area-restrita/view/index-leitor.php'); 
+                    header('Location: ../area-restrita/view/leitor/paginaInicial.php'); 
 
                 }else{
                     header('Location: loginUsuario.php');

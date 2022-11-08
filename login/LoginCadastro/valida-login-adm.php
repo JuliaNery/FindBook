@@ -1,5 +1,5 @@
 <?php
-    header('Location: ../area-restrita/view/admDashboard.php');
+    header('Location: ../area-restrita/view/admin/index.php');
     $login = $_POST['login'];
     $senha = $_POST['senha'];
 

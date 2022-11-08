@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Nov-2022 às 21:33
+-- Tempo de geração: 08-Nov-2022 às 16:47
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 8.1.2
 
@@ -106,8 +106,6 @@ CREATE TABLE `tbexemplar` (
 --
 
 INSERT INTO `tbexemplar` (`idExemplar`, `numExemplar`, `idBiblioteca`, `idLivro`) VALUES
-(1, 456, 3, 2),
-(3, 455, 3, 2),
 (4, 123, 3, 1),
 (5, 485, 3, 1),
 (6, 459, 3, 3),
@@ -168,8 +166,7 @@ CREATE TABLE `tbleitor` (
 --
 
 INSERT INTO `tbleitor` (`idLeitor`, `fotoLeitor`, `nomeLeitor`, `emailLeitor`, `cpfLeitor`, `rgLeitor`, `dtNascLeitor`, `generoLeitor`, `loginLeitor`, `senhaLeitor`) VALUES
-(1, NULL, 'Leandro Santos', 'leandro@gmail.com', '', '', '0000-00-00', '', '', '123456'),
-(2, NULL, 'julinha', 'julia@gmail.com', '', '', '0000-00-00', '', '', '123456');
+(1, NULL, 'julia', 'julianery@gmail.com', '54065713897', '390382383', '2004-04-22', 'Feminino', 'juju', '123456');
 
 -- --------------------------------------------------------
 
@@ -179,7 +176,7 @@ INSERT INTO `tbleitor` (`idLeitor`, `fotoLeitor`, `nomeLeitor`, `emailLeitor`, `
 
 CREATE TABLE `tblivro` (
   `idLivro` int(11) NOT NULL,
-  `capaLivro` blob DEFAULT NULL,
+  `capaLivro` varchar(120) DEFAULT NULL,
   `nomeLivro` varchar(120) DEFAULT NULL,
   `sinopseLivro` varchar(1000) DEFAULT NULL,
   `dtLancamento` date DEFAULT NULL,
@@ -195,7 +192,6 @@ CREATE TABLE `tblivro` (
 
 INSERT INTO `tblivro` (`idLivro`, `capaLivro`, `nomeLivro`, `sinopseLivro`, `dtLancamento`, `faixaEtaria`, `idAutor`, `idGenero`, `idEditora`) VALUES
 (1, '', 'a culpa é das estrelas', 'kdsjllllllllj', '2022-10-12', 12, 1, 1, 1),
-(2, '', 'a culpa é das estrelas 2', 'kdsjllllllllj', '2022-10-12', 12, 1, 1, 1),
 (3, NULL, 'Como eu era antes de você', 'Will Traynor, de 35 anos, é inteligente, rico e mal-humorado. Preso a uma cadeira de rodas depois de um acidente de moto, o antes ativo e esportivo Will desconta toda a sua amargura em quem estiver por perto e planeja dar um fim ao seu sofrimento. O que Will não sabe é que Lou está prestes a trazer cor a sua vida.', '2012-01-05', 14, 2, 1, 1);
 
 -- --------------------------------------------------------
@@ -248,6 +244,16 @@ CREATE TABLE `tbtelbiblioteca` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura stand-in para vista `vwcontalivro`
+-- (Veja abaixo para a view atual)
+--
+CREATE TABLE `vwcontalivro` (
+`qtd` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura stand-in para vista `vwexemplar`
 -- (Veja abaixo para a view atual)
 --
@@ -264,11 +270,45 @@ CREATE TABLE `vwexemplar` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura stand-in para vista `vwlivro`
+-- (Veja abaixo para a view atual)
+--
+CREATE TABLE `vwlivro` (
+`nomeLivro` varchar(120)
+,`nomeAutor` varchar(60)
+,`nomeEditora` char(30)
+,`nomeGenero` varchar(20)
+,`faixaEtaria` tinyint(2)
+,`dtLancamento` date
+,`sinopseLivro` varchar(1000)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para vista `vwcontalivro`
+--
+DROP TABLE IF EXISTS `vwcontalivro`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwcontalivro`  AS SELECT count(`tblivro`.`nomeLivro`) AS `qtd` FROM (`tblivro` join `tbexemplar` on(`tbexemplar`.`idLivro` = `tblivro`.`idLivro`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para vista `vwexemplar`
 --
 DROP TABLE IF EXISTS `vwexemplar`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwexemplar`  AS SELECT `tblivro`.`nomeLivro` AS `nomeLivro`, `tbexemplar`.`numExemplar` AS `numExemplar`, `tbautor`.`nomeAutor` AS `nomeAutor`, `tbeditora`.`nomeEditora` AS `nomeEditora`, `tbgenero`.`nomeGenero` AS `nomeGenero`, `tblivro`.`faixaEtaria` AS `faixaEtaria`, `tbbiblioteca`.`nomeBiblioteca` AS `nomeBiblioteca` FROM (((((`tbexemplar` join `tblivro` on(`tbexemplar`.`idLivro` = `tblivro`.`idLivro`)) join `tbautor` on(`tblivro`.`idAutor` = `tbautor`.`idAutor`)) join `tbeditora` on(`tblivro`.`idEditora` = `tbeditora`.`idEditora`)) join `tbgenero` on(`tblivro`.`idGenero` = `tbgenero`.`idGenero`)) join `tbbiblioteca` on(`tbexemplar`.`idBiblioteca` = `tbbiblioteca`.`idBiblioteca`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para vista `vwlivro`
+--
+DROP TABLE IF EXISTS `vwlivro`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwlivro`  AS SELECT `tblivro`.`nomeLivro` AS `nomeLivro`, `tbautor`.`nomeAutor` AS `nomeAutor`, `tbeditora`.`nomeEditora` AS `nomeEditora`, `tbgenero`.`nomeGenero` AS `nomeGenero`, `tblivro`.`faixaEtaria` AS `faixaEtaria`, `tblivro`.`dtLancamento` AS `dtLancamento`, `tblivro`.`sinopseLivro` AS `sinopseLivro` FROM (((`tblivro` join `tbautor` on(`tblivro`.`idAutor` = `tbautor`.`idAutor`)) join `tbeditora` on(`tblivro`.`idEditora` = `tbeditora`.`idEditora`)) join `tbgenero` on(`tblivro`.`idGenero` = `tbgenero`.`idGenero`)) ;
 
 --
 -- Índices para tabelas despejadas
