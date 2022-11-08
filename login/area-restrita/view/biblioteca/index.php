@@ -32,7 +32,7 @@
 
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<a href="#" class="brand"><i class='bx bxs-smile icon'></i> Biblioteca: <?php echo $_SESSION['nomeBiblioteca'] ?></a>
+		<a href="#" class="brand"><i class='bx bxs-smile icon'></i>  <?php echo $_SESSION['nomeBiblioteca'] ?></a>
 		<ul class="side-menu">
 			<li><a href="index.php" class="active"><i class='bx bxs-dashboard icon'></i> Dashboard</a></li>
 			<li class="divider" data-text="Biblioteca">Main</li>

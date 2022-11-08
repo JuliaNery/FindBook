@@ -111,7 +111,7 @@
 
         public function listar(){
             $conexao = Conexao::conectar();
-            $querySelect = "SELECT * FROM vwLivro";
+            $querySelect = "SELECT * FROM vwLivros";
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
             return $lista;
