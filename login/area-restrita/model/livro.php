@@ -119,7 +119,7 @@
 
         public function contador(){
             $conexao = Conexao::conectar();
-            $stmt = $conexao->prepare("SELECT COUNT(qtd) FROM vwContaLivro  WHERE idbiblioteca = ? Group by tbLivro.nomeLivro");
+            $stmt = $conexao->prepare("SELECT COUNT(qtd) FROM vwContaLivro  WHERE idBiblioteca = ? Group by tbLivro.nomeLivro");
             $stmt ->bindValue(1, $_SESSION['idBiblioteca']);
 
             $stmt->execute();
