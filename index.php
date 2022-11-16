@@ -79,11 +79,32 @@
 
     <div id="close-login-btn" class="fas fa-times"></div>
 
+    <a href="login/LoginCadastro/loginUsuario.php">
     <form action="#">
-       <a href="login/LoginCadastro/loginUsuario.php"> <h3>Leitor</h3> </a>
-       <a href="login/LoginCadastro/loginBiblioteca.php"> <h3>Biblioteca</h3> </a>
-       <a href="login/LoginCadastro/loginAdm.php"> <h3>Administração</h3> </a>
+    <div class="iconeLogin">
+    <i class="fas fa-book"></i>
+    </div>
+        <h3>Leitor</h3> 
     </form>
+    </a>
+
+    <a href="login/LoginCadastro/loginBiblioteca.php">
+    <form action="#">
+    <div class="iconeLogin">
+    <i class="fas fa-book"></i>
+    </div>
+        <h3>Biblioteca</h3> 
+    </form>
+    </a>
+
+    <a href="login/LoginCadastro/loginAdm.php">
+    <form action="#">
+    <div class="iconeLogin">
+    <i class="fas fa-book"></i>
+    </div>
+      <h3>Administração</h3> 
+    </form>
+    </a>
 
 </div>
 
@@ -194,7 +215,6 @@
 
             <div class="swiper-slide box">
                 <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
                     <a href="#" class="fas fa-heart"></a>
                     <a href="#" class="fas fa-eye"></a>
                 </div>
@@ -202,21 +222,13 @@
                     <img src="image/book-1.png" alt="">
                 </div>
                 <div class="content">
-                    <h3>featured books</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
+                    <h3>Nome do livro</h3>
                 </div>
             </div>
 
 
             <div class="swiper-slide box">
                 <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
                     <a href="#" class="fas fa-heart"></a>
                     <a href="#" class="fas fa-eye"></a>
                 </div>
@@ -224,21 +236,13 @@
                     <img src="image/book-3.png" alt="">
                 </div>
                 <div class="content">
-                    <h3>Bora Bill</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
+                <h3>Nome do livro</h3>
                    
                 </div>
             </div>
 
             <div class="swiper-slide box">
                 <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
                     <a href="#" class="fas fa-heart"></a>
                     <a href="#" class="fas fa-eye"></a>
                 </div>
@@ -246,21 +250,13 @@
                     <img src="image/book-5.png" alt="">
                 </div>
                 <div class="content">
-                    <h3>ai kaliquinhaa</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
+                <h3>Nome do livro</h3>
                    
                 </div>
             </div>
 
             <div class="swiper-slide box">
                 <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
                     <a href="#" class="fas fa-heart"></a>
                     <a href="#" class="fas fa-eye"></a>
                 </div>
@@ -269,20 +265,11 @@
                 </div>
                 <div class="content">
                     <h3>fggttddd</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                  
                 </div>
             </div>
 
             <div class="swiper-slide box">
                 <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
                     <a href="#" class="fas fa-heart"></a>
                     <a href="#" class="fas fa-eye"></a>
                 </div>
@@ -290,14 +277,7 @@
                     <img src="image/book-7.png" alt="">
                 </div>
                 <div class="content">
-                    <h3>Sample</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
+                <h3>Nome do livro</h3>
                    
                 </div>
             </div>
@@ -332,69 +312,6 @@
 <section class="newsletter">
 
 </section>
-
-<!-- blogs section starts  -->
-<!-- 
-<section class="blogs" id="unidades">
-
-    <h1 class="heading"> <span>Unidades</span> </h1>
-
-    <div class="swiper blogs-slider">
-
-        <div class="swiper-wrapper">
-
-            <div class="swiper-slide box">
-                <div class="image">
-                    <img src="image/k.jpg" alt="">
-                </div>
-                <div class="content">
-                    <h3>Minhá kaza sua vidah</h3>
-                   <p> <i class='bx bxs-location-plus'></i> Aqui.</p>
-                    <a href="#" class="btn">ver mais</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="image">
-                    <img src="image/k.jpg" alt="">
-                </div>
-                <div class="content">
-                    <h3>Minhá kaza sua vidah</h3>
-                    <p> <i class='bx bxs-location-plus'></i> Aqui.</p>
-                    <a href="#" class="btn">ver mais</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="image">
-                    <img src="image/k.jpg" alt="">
-                </div>
-                <div class="content">
-                    <h3>Minhá kaza sua vidah</h3>
-                    <p> <i class='bx bxs-location-plus'></i> Aqui.</p>
-                    <a href="#" class="btn">ver mais</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="image">
-                    <img src="image/k.jpg" alt="">
-                </div>
-                <div class="content">
-                    <h3>Minhá kaza sua vidah</h3>
-                    <p> <i class='bx bxs-location-plus'></i> Aqui.</p>
-                    <a href="#" class="btn">ver mais</a>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-</section> -->
-
-<!-- blogs section ends -->
-
       
 <!-- contact section starts  -->
 

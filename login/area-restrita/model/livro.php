@@ -94,24 +94,44 @@
         public function cadastrar($Livro){
             $conexao = Conexao::conectar();
 
-            $stmt = $conexao->prepare("INSERT INTO tbLivro(nomeLivro, dtLancamento, sinopseLivro, capaLivro,faixaEtaria, idAutor, idEditora, idgenero) 
-            VALUES(?, ?, ?, ?, ?, ?, ?,?)");
-
-            $stmt->bindValue(1, $Livro->getNomeLivro());
-            $stmt->bindValue(2, $Livro->getDtLancamento());
-            $stmt->bindValue(3, $Livro->getSinopseLivro());
-            $stmt->bindValue(4, $Livro->getCapaLivro());
-            $stmt->bindValue(5, $Livro->getFaixaEtaria());
-            $stmt->bindValue(6, $Livro->getAutor()->getIdAutor());
-            $stmt->bindValue(7, $Livro->getEditora()->getIdEditora());
-            $stmt->bindValue(8, $Livro->getGenero()->getIdGenero());
             
-            $stmt->execute();
+            $querySelect = $conexao->prepare("SELECT nomeLivro FROM vwLivro where nomeLivro = ?");
+            $querySelect ->bindValue(1, $Livro->getNomeLivro());
+            
+            $querySelect->execute();
+            
+            if($querySelect->rowCount() == 0){
+                $stmt = $conexao->prepare("INSERT INTO tbLivro(nomeLivro, dtLancamento, sinopseLivro, capaLivro,faixaEtaria, idAutor, idEditora, idgenero) 
+                    VALUES(?, ?, ?, ?, ?, ?, ?,?)");
+
+                $stmt->bindValue(1, $Livro->getNomeLivro());
+                $stmt->bindValue(2, $Livro->getDtLancamento());
+                $stmt->bindValue(3, $Livro->getSinopseLivro());
+                $stmt->bindValue(4, $Livro->getCapaLivro());
+                $stmt->bindValue(5, $Livro->getFaixaEtaria());
+                $stmt->bindValue(6, $Livro->getAutor()->getIdAutor());
+                $stmt->bindValue(7, $Livro->getEditora()->getIdEditora());
+                $stmt->bindValue(8, $Livro->getGenero()->getIdGenero());
+                
+                $stmt->execute();
+
+                session_start();
+                $result = 'Livro Cadastrado com sucesso';
+                $_SESSION['cadastro'] = $result;
+
+                return $_SESSION['cadastro'];
+            }else{
+                session_start();
+                $result = 'Livro já cadastrado, verifique os dados e tente novemente.';
+                $_SESSION['cadastro'] = $result;
+                
+                return $_SESSION['cadastro'];
+            }
         }
 
         public function listar(){
             $conexao = Conexao::conectar();
-            $querySelect = "SELECT * FROM vwLivros";
+            $querySelect = "SELECT * FROM vwLivro order by idLivro asc";
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
             return $lista;
@@ -119,7 +139,7 @@
 
         public function contador(){
             $conexao = Conexao::conectar();
-            $stmt = $conexao->prepare("SELECT COUNT(idLivro) as qtd FROM tbLivro where idBiblioteca = ?");
+            $stmt = $conexao->prepare("call spContaLivro(?)");
             $stmt ->bindValue(1, $_SESSION['idBiblioteca']);
 
             $stmt->execute();

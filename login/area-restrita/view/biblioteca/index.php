@@ -32,7 +32,7 @@
 
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<a href="#" class="brand"><i class='bx bxs-smile icon'></i>Biblioteca: <?php echo $_SESSION['nomeBiblioteca'] ?></a>
+		<a href="#" class="brand"><i class='bx bx-library'></i>  <?php echo $_SESSION['nomeBiblioteca'] ?></a>
 		<ul class="side-menu">
 			<li><a href="index.php" class="active"><i class='bx bxs-dashboard icon'></i> Dashboard</a></li>
 			<li class="divider" data-text="Biblioteca">Main</li>
@@ -82,9 +82,10 @@
 				<li>
 					<i class='bx bx-library'></i>
 					<span class="text">
-						<h3><?php foreach ($qtdLivro as $livro) {
-                            echo ($livro['qtd']);
-                        }?></h3>
+						<h3><?php $n = 0; foreach ($qtdLivro as $livro) {
+                            
+							$n++;
+                        }echo ($n);?></h3>
 						<p>Livro</p>
 					</span>
 				</li>

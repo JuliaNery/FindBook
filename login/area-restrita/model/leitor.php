@@ -1,5 +1,7 @@
 <?php
     require_once("conexao.php");
+    require_once("livro.php");
+    require_once("biblioteca.php");
 
     class Leitor{
         private $idLeitor;
@@ -12,6 +14,8 @@
         private $fotoLeitor;
         private $loginLeitor;
         private $senhaLeitor;
+        private $biblioteca;
+        private $livro;
 
         //ID LEITOR
         public function getIdLeitor(){
@@ -91,18 +95,52 @@
             $this->senhaLeitor = $senhaLeitor;
         }
 
+        //livro for serch
+        public function getLivro(){
+            return $this->livro;
+        }
+        public function setLivro($livro){
+            $this->Livro = $livro;
+        }
+
+        //ID Editora
+        public function getBiblioteca(){
+            return $this->biblioteca;
+        }
+        public function setBiblioteca($biblioteca){
+            $this->biblioteca = $biblioteca;
+        }
+
         //FUNCTION DE CADASTRAR
         public function cadastrar($Leitor){
             $conexao = Conexao::conectar();
 
-            $stmt = $conexao->prepare("INSERT INTO tbLeitor(nomeLeitor, EmailLeitor, senhaLeitor) 
-            VALUES(?, ?, ?)");
-
-            $stmt->bindValue(1, $Leitor->getNomeLeitor());
-            $stmt->bindValue(2, $Leitor->getEmailLeitor());
-            $stmt->bindValue(3, $Leitor->getSenhaLeitor());
+            $querySelect = $conexao->prepare("SELECT emailLeitor FROM tbleitor where emailLeitor = ?");
+            $querySelect ->bindValue(1, $Leitor->getEmailLeitor());
             
-            $stmt->execute();
+            $querySelect->execute();
+            
+            if($querySelect->rowCount() == 0){
+                $stmt = $conexao->prepare("CALL spInsertLeitor(?, ?, ?)");
+
+                $stmt->bindValue(1, $Leitor->getNomeLeitor());
+                $stmt->bindValue(2, $Leitor->getEmailLeitor());
+                $stmt->bindValue(3, $Leitor->getSenhaLeitor());
+                
+                $stmt->execute();
+
+                session_start();
+                $result = 'Usuario Cadastrado com sucesso';
+                $_SESSION['cadastro'] = $result;
+
+                return $_SESSION['cadastro'];
+            }else{
+                session_start();
+                $result = 'Email já cadastrado, tente novemente.';
+                $_SESSION['cadastro'] = $result;
+                
+                return $_SESSION['cadastro'];
+            }
         }
 
         public function login($emailLeitor, $senhaLeitor){
@@ -121,30 +159,82 @@
                 $_SESSION['nomeLeitor'] = $dado['nomeLeitor'];
                 $_SESSION['emailLeitor'] = $dado['emailLeitor'];
                 $_SESSION['senhaLeitor'] = $dado['senhaLeitor'];
+                $_SESSION['dtNascLeitor'] = $dado['dtNascLeitor'];
+                $_SESSION['generoLeitor'] = $dado['generoLeitor'];
+                $_SESSION['fotoLeitor'] = $dado['fotoLeitor'];
+                $_SESSION['cpfLeitor'] = $dado['cpfLeitor'];
+                $_SESSION['rgLeitor'] = $dado['rgLeitor'];
+                $_SESSION['loginLeitor'] = $dado['loginLeitor'];
 
                 return true;
             }else{
                 return false;
             }
         }
+        
+        public function search($pesquisa){
+            $conexao = Conexao::conectar();
 
+            $stmt = $conexao->prepare("SELECT * FROM tbLeitor WHERE emailLeitor = ? AND senhaLeitor = ?");
+            $stmt ->bindValue(1, $pesquisa);
+            $stmt ->bindValue(2, $pesquisa);
+        
+        
+        }
         public function update($Leitor){
             $conexao = Conexao::conectar();
             
-            $stmt = $conexao->prepare("UPDATE tbLeitor  
-            set nomeLeitor = ?, loginLeitor = ?, emailLeitor =  ?, cpfLeitor = ?, rgLeitor = ?, dtNascLeitor = ?, generoLeitor = ? 
-            where idLeitor = ?");
+            if(!empty($Leitor->getFotoLeitor())){
+                $stmt = $conexao->prepare("UPDATE tbLeitor  
+                set nomeLeitor = ?, loginLeitor = ?, emailLeitor =  ?, cpfLeitor = ?, rgLeitor = ?, dtNascLeitor = ?, generoLeitor = ?, fotoLeitor = ?
+                where idLeitor = ?");
 
-            $stmt->bindValue(1, $Leitor->getNomeLeitor());
-            $stmt->bindValue(2, $Leitor->getLoginLeitor());
-            $stmt->bindValue(3, $Leitor->getEmailLeitor());
-            $stmt->bindValue(4, $Leitor->getCpfLeitor());
-            $stmt->bindValue(5, $Leitor->getRgLeitor());
-            $stmt->bindValue(6, $Leitor->getDtNascLeitor());
-            $stmt->bindValue(7, $Leitor->getGeneroLeitor());
-            $stmt->bindValue(8, $Leitor->getidLeitor());
+                $stmt->bindValue(1, $Leitor->getNomeLeitor());
+                $stmt->bindValue(2, $Leitor->getLoginLeitor());
+                $stmt->bindValue(3, $Leitor->getEmailLeitor());
+                $stmt->bindValue(4, $Leitor->getCpfLeitor());
+                $stmt->bindValue(5, $Leitor->getRgLeitor());
+                $stmt->bindValue(6, $Leitor->getDtNascLeitor());
+                $stmt->bindValue(7, $Leitor->getGeneroLeitor());
+                $stmt->bindValue(8, $Leitor->getFotoLeitor());
+                $stmt->bindValue(9, $Leitor->getidLeitor());
 
-            $stmt->execute();
+                $stmt->execute();
+
+                $_SESSION['nomeLeitor'] = $Leitor->getNomeLeitor();
+                $_SESSION['emailLeitor'] = $Leitor->getEmailLeitor();
+                $_SESSION['dtNascLeitor'] = $Leitor->getDtNascLeitor();
+                $_SESSION['generoLeitor'] = $Leitor->getGeneroLeitor();
+                $_SESSION['fotoLeitor'] = $Leitor->getFotoLeitor();
+                $_SESSION['cpfLeitor'] =  $Leitor->getCpfLeitor();
+                $_SESSION['rgLeitor'] = $Leitor->getRgLeitor();
+                $_SESSION['loginLeitor'] = $Leitor->getLoginLeitor();
+            }else{
+                $stmt = $conexao->prepare("UPDATE tbLeitor  
+                set nomeLeitor = ?, loginLeitor = ?, emailLeitor =  ?, cpfLeitor = ?, rgLeitor = ?, dtNascLeitor = ?, generoLeitor = ?
+                where idLeitor = ?");
+
+                $stmt->bindValue(1, $Leitor->getNomeLeitor());
+                $stmt->bindValue(2, $Leitor->getLoginLeitor());
+                $stmt->bindValue(3, $Leitor->getEmailLeitor());
+                $stmt->bindValue(4, $Leitor->getCpfLeitor());
+                $stmt->bindValue(5, $Leitor->getRgLeitor());
+                $stmt->bindValue(6, $Leitor->getDtNascLeitor());
+                $stmt->bindValue(7, $Leitor->getGeneroLeitor());
+                $stmt->bindValue(8, $Leitor->getidLeitor());
+
+                $stmt->execute();
+
+                $_SESSION['nomeLeitor'] = $Leitor->getNomeLeitor();
+                $_SESSION['emailLeitor'] = $Leitor->getEmailLeitor();
+                $_SESSION['dtNascLeitor'] = $Leitor->getDtNascLeitor();
+                $_SESSION['generoLeitor'] = $Leitor->getGeneroLeitor();
+                $_SESSION['cpfLeitor'] =  $Leitor->getCpfLeitor();
+                $_SESSION['rgLeitor'] = $Leitor->getRgLeitor();
+                $_SESSION['loginLeitor'] = $Leitor->getLoginLeitor();
+            }
+            
+
         }
         public function contador(){
             $conexao = Conexao::conectar();
@@ -155,6 +245,7 @@
             $num = $stmt->fetchAll();
             return $num;
         }
+
 
         public function listar(){
                 $conexao = Conexao::conectar();

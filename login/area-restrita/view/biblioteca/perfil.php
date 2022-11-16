@@ -25,7 +25,7 @@ include_once('../../controller/valida-biblioteca.php');
 	</a>
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<a href="#" class="brand"><i class='bx bxs-smile icon'></i> Biblioteca</a>
+		<a href="#" class="brand"><i class='bx bx-library'></i> Biblioteca</a>
 		<ul class="side-menu">
 			<li><a href="index.php"><i class='bx bxs-dashboard icon'></i> Dashboard</a></li>
 			<li class="divider" data-text="Biblioteca">Main</li>
@@ -65,7 +65,7 @@ include_once('../../controller/valida-biblioteca.php');
 				<div class="perfil-usuario-header">
 					<div class="perfil-usuario-portada">
 						<div class="perfil-usuario-avatar">
-							<img src="https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png" alt="Sem imagem">
+							<img src="<?php if(!empty($_SESSION['fotoBiblioteca'])){ echo "../../../../".$_SESSION['fotoBiblioteca']; }else{ echo("https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png");}?>" alt="Sem imagem">
 						</div>
 					</div>
 				</div>
@@ -74,14 +74,16 @@ include_once('../../controller/valida-biblioteca.php');
 						<h3 class="titulo">Biblioteca <?php echo $_SESSION['nomeBiblioteca'] ?></h3>
 						<div class="perfil-usuario-footer">
 							<ul class="lista-datos">
-								<li><i class="icono fas fa-user-check"></i><?php echo $_SESSION['emailBiblioteca'] ?></li>
 								<li><i class="icono fas fa-calendar-alt"></i>Abertura <?php echo $_SESSION['horarioAbertura'] ?></li>
-								<li><i class="icono fas fa-calendar-alt"></i>Fechamento<?php echo $_SESSION['horarioFechamento'] ?></li>
+								<li><i class="icono fas fa-calendar-alt"></i>Fechamento <?php echo" ".$_SESSION['horarioFechamento'] ?></li>
 							</ul>
 							<ul class="lista-datos">
-								<li><i class="icono fas fa-phone-alt"></i>celular </li>
+								<li><i class="bx bxs-envelope"></i> <?php echo $_SESSION['emailBiblioteca'] ?></li>
 								<li><i class="icono fas fa-phone-alt"></i>Numero </li>
-								<li><i class="icono fas fa-map-marker-alt"></i>Localização</li>
+							</ul>
+							<ul style="margin-left: auto; margin-right: auto; margin-top: 30px;">
+								<!-- <li><i class="icono fas fa-map-marker-alt"></i> Localização</li> -->
+								<li><i class="icono fas fa-map-marker-alt"></i> <?php echo" ".$_SESSION['ruaBiblioteca']." ".$_SESSION['numBiblioteca'].", ".$_SESSION['bairroBiblioteca'].", ". $_SESSION['cidadeBiblioteca']."." ?></li>
 							</ul>
 						</div>
 
@@ -99,7 +101,7 @@ include_once('../../controller/valida-biblioteca.php');
 						<h2>Edite seu perfil</h2>
 					</center>
 					<hr />
-					<form action="../../controller/update-biblioteca.php" method="post">
+					<form action="../../controller/update-biblioteca.php" method="post" enctype="multipart/form-data">
 						<div class="form first">
 							<div class="details personal"><br>
 								<p>As informações adicionadas abaixo apareceram em seu perfil:</p>
@@ -118,7 +120,7 @@ include_once('../../controller/valida-biblioteca.php');
 							</div>
 							<br>
 							<div class="ee">
-								<input id="file-preview-js" type="file" accept="image/*" onchange="loaderFile(event)"><br><br>
+								<input id="file-preview-js" type="file" name="foto" accept="image/*" onchange="loaderFile(event)"><br><br>
 								<!-- <input type="submit" value="Enviar"> -->
 							</div>
 
@@ -126,36 +128,33 @@ include_once('../../controller/valida-biblioteca.php');
 							<div class="fields">
 								<div class="input-field">
 									<label> Nome:</label>
-									<input type="text" name="nome" placeholder="Nome">
+									<input type="text" value="<?php echo $_SESSION['nomeBiblioteca'] ?>" name="nome" placeholder="Nome">
 								</div>
 								<div class="input-field">
 									<label>Email: </label>
-									<input type="text" name="email" placeholder="Email">
+									<input type="text" name="email" value="<?php echo $_SESSION['emailBiblioteca'] ?>" placeholder="Email">
 								</div>
 								<div class="input-field">
 									<label>Horario Abertura:</label>
-									<input type="time" name="abertura" >
+									<input type="time" <?php if(!empty($_SESSION['horarioAbertura'])){ echo ('value="'.$_SESSION['horarioAbertura'].'"'); }?> name="abertura" >
 								</div>
 								<div class="input-field">
 									<label>Horario Fechamento:</label>
-									<input type="time" name="fechamento" >
+									<input type="time" <?php if(!empty($_SESSION['horarioFechamento'])){ echo ('value="'.$_SESSION['horarioFechamento'].'"'); }?> name="fechamento" >
 								</div>
 								<div class="input-field">
 									<label>Telefone</label>
-									<input type="text" id="telefone" name="telefone" maxlength="10" placeholder="(11) 1111-1111">
+									<input type="text" id="telefone" <?php if(!empty($_SESSION['telBiblioteca'])){ echo ('value="'.$_SESSION['telBiblioteca'].'"'); }else{ echo("placeholder='(11) 1111-1111'");}?> name="telefone" maxlength="10" placeholder="(11) 1111-1111">
 								</div>
-								<div class="input-field">
-									<label>Celular</label>
-									<input type="text" id="telefone" name="celular" maxlength="11" placeholder="(11) 91111-1111">
-								</div>
+							
 							</div>
+						</div>
+						<div class="btns">
+							<button class="btnOK" onclick="closeModal6()">alterar</button>
+							<button class="btnClose" onclick="closeModal6()">fechar</button>
 						</div>
 					</form>
 					<hr />
-					<div class="btns">
-						<button class="btnOK" onclick="closeModal6()">alterar</button>
-						<button class="btnClose" onclick="closeModal6()">fechar</button>
-					</div>
 				</div>
 			</div>
 			<!-- FIM MODAL FORMULARIO PERFIL -->

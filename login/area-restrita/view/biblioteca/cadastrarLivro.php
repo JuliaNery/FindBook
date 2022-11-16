@@ -6,6 +6,7 @@ require_once("../../model/editora.php");
 require_once("../../model/genero.php");
 require_once("../../model/livro.php");
 
+
 try {
 	$Autor = new Autor();
 	$Genero = new Genero();
@@ -37,7 +38,7 @@ try {
 			<div class="container">
 				<header>Cadastrar Livros</header>
 
-				<form action="../../controller/cadastra-livro.php" method="POST">
+				<form action="../../controller/cadastra-livro.php" method="POST" enctype="multipart/form-data">
 					<div class="form first">
 						<div class="details personal">
 							<span class="title">Preencha as informações abaixo:</span>
@@ -47,7 +48,7 @@ try {
 								</div>
 								<img src="https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png" alt="Sem imagem">
 							</div>
-							<input id="file-preview-js" type="file" accept="image/*" onchange="loaderFile(event)"><br><br>
+							<input id="file-preview-js" type="file" accept="image/*" name="capa" onchange="loaderFile(event)"><br><br>
 
 							<div class="fields">
 								<div class="input-field">
@@ -61,7 +62,7 @@ try {
 								</div>
 
 								<div class="input-field">
-									<label>lançamento:</label>
+									<label>Lançamento:</label>
 									<input type="date" name="dtLancamento" placeholder="Digite aqui" required>
 								</div>
 
@@ -118,15 +119,15 @@ try {
 
 								<div class="input-field">
 									<label> Sinopse: </label>
-									<input name="txtSinopseLivro" type="text" placeholder="Digite aqui" maxlength="1000" required>
+									<textarea name="txtSinopseLivro" type="text" style="border-radius: 5px;" placeholder="Digite aqui..." maxlength="1000" required></textarea>
 								</div>
 
 								<div class="buttons">
 									<button class="cadastrar">
-										<span class="btnText"><a href="exemplares.html">Voltar</a></span>
+										<span class="btnText"><a href="exemplares.php">Voltar</a></span>
 										<i class="uil uil-navigator"></i>
 									</button>
-									<button class="cadastrar">
+									<button onclick="cadastro()" class="cadastrar">
 										<span class="btnText">Cadastrar</span>
 										<i class="uil uil-navigator"></i>
 									</button>
@@ -200,6 +201,7 @@ try {
 		</div>
 	</div>
 	</section>
+
 
 
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

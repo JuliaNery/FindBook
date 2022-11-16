@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <!--=== Coding by CodingLab | www.codinglabweb.com === -->
 <html lang="en">
@@ -50,13 +53,14 @@
                         <div class="input-field">
                             <label> <i class="fas fa-lock"></i> Senha:</label>
                             <input type="password" name="txtSenha" placeholder="Crie uma senha" required>
+                           
                         </div>
                     </div>
                 </div>
 
                 
                     <div class="buttons">
-                        <button class="cadastrar">
+                        <button onclick="cadastro()" class="cadastrar">
                             <span class="btnText">Cadastrar</span>
                             <i class="uil uil-navigator"></i>
                         </button>
@@ -64,10 +68,20 @@
                         <div class="sign-up-text">Já tem uma conta? <label> <a  href="loginUsuario.php" >Entre agora!</label></a></div>
                     </div>
             </div>
-        </form>
+      </form>
     </div>
+
 </div>
 
+
+    <script>
+        function cadastro()
+        {
+            alert("<?php echo($_SESSION['cadastro']); ?>");
+        }
+
+        <?php session_destroy(); ?>
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-    header("Location: ../view/biblioteca/cadastraLivro.php");
+    header("Location: ../view/biblioteca/cadastrarLivro.php");
     require_once("../model/editora.php");
 
     $Editora = new Editora();

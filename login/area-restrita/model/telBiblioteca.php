@@ -33,23 +33,22 @@
             $this->numCelBiblioteca = $numCelBiblioteca;
         }
         //ID BIBLIOTECCA
-        public function getIdBiblioteca(){
-            return $this->idBiblioteca;
+        public function getBiblioteca(){
+            return $this->biblioteca;
         }
-        public function setIdBiblioteca($idBiblioteca){
-            $this->idBiblioteca = $idBiblioteca;
+        public function setBiblioteca($biblioteca){
+            $this->biblioteca = $biblioteca;
         }
 
         public function cadastrar($TelBiblioteca){
             $conexao = Conexao::conectar();
 
-            $stmt = $conexao->prepare("INSERT INTO tbTelBiblioteca(numTelBiblioteca, numcelBiblioteca, idBiblioteca) 
-            VALUES(?, ?, ?)");
+            $stmt = $conexao->prepare("INSERT INTO tbTelBiblioteca (numTelBiblioteca, idBiblioteca) 
+            VALUES (?, ?)");
 
             $stmt->bindValue(1, $TelBiblioteca->getNumTelBiblioteca());
-            $stmt->bindValue(2, $TelBiblioteca->getNumelBiblioteca());
-            $stmt->bindValue(3, $TelBiblioteca->getIdBiblioteca()->getIdBiblioteca());
-            
+            $stmt->bindValue(2, $TelBiblioteca->getBiblioteca()->getIdBiblioteca());
+
             $stmt->execute();
         }
     }

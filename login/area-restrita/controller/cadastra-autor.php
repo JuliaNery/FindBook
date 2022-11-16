@@ -1,5 +1,5 @@
 <?php
-    header("Location: ../view/biblioteca/cadastraLivro.php");
+    header("Location: ../view/biblioteca/cadastrarLivro.php");
     require_once("../model/Autor.php");
 
     $Autor = new Autor();

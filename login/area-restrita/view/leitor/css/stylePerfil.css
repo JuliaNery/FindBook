@@ -583,8 +583,10 @@ main .title {
 }
 
 .seccion-perfil-usuario .perfil-usuario-avatar img {
-    width: 100%;
+    width:180px;
+    height: 170px;
     position: relative;
+
     border-radius: 50%;
 }
 
@@ -938,8 +940,9 @@ form .buttons button , .backBtn{
     border: 2px solid rgb(250, 225, 145);;;
     border-radius: 10px;
     cursor: pointer;
-	margin-left: 41%;
-	/* top: 10%; */
+    margin-left: auto;
+    margin-top: 22px;
+    margin-right: auto;
     -webkit-transition: background-color .3s, border-color .3s ease-out;
     transition: background-color .3s, border-color .3s ease-out;
  }

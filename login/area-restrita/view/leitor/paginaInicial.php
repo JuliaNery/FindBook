@@ -1,5 +1,14 @@
 <?php
 	include_once('../../controller/valida-leitor.php');
+	require_once("../../model/livro.php");
+
+try {
+	$Livro = new Livro();
+
+	$listaLivro = $Livro->listar();
+} catch (Exception $e) {
+	echo $e->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,10 +50,10 @@
 				</div>
 			</form>
 			<span class="divider"></span>
-			<p><?php echo $_SESSION['nomeLeitor'] ?></p>
+			<p><?php if(!empty($_SESSION['loginLeitor'])){ echo ($_SESSION['loginLeitor']); }else{ echo $_SESSION['nomeLeitor'];}?></p>
+
 			<div class="profile">
-				
-				<img src="img/foto.png" alt="">
+				<img src="<?php if(!empty($_SESSION['fotoLeitor'])){ echo "../../../../".$_SESSION['fotoLeitor']; }else{ echo("https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png");}?>" alt="">
 				<ul class="profile-link">
 					<li><a href="#"><i class='bx bxs-cog' ></i> Configurações</a></li>
 					<li><a href="#" onclick="openModal01()"><i class='bx bxs-log-out-circle' ></i> Sair</a></li>
@@ -67,90 +76,25 @@
 				<h1 class="heading"> <span>Livros em Destaques</span> </h1>
 				<div class="swiper featured-slider">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide box">
-							<div class="products-container"> 
-							    <div class="product">	
-									<div class="icons">
-										<a href="#" class="fas fa-heart"></a>
-										<a class="fas fa-eye" data-name="p-1" ></a>
+						<?php foreach ($listaLivro as $linhas) {  ?>
+							<div class="swiper-slide box">
+								<div class="products-container"> 
+									<div class="product">	
+										<div class="icons">
+											<a href="#" class="fas fa-heart"></a>
+											<a class="fas fa-eye" data-name="p-1" ></a>
+										</div>
 									</div>
 								</div>
+								<div class="image">
+									<img src="../<?php echo $linhas['capaLivro'] ?>"  alt="">
+								</div>
+								<div class="content">
+									<h3><?php echo $linhas['nomeLivro'] ?></h3>
+								</div>
 							</div>
-							<div class="image">
-								<img src="img/livro.jpg"  alt="">
-							</div>
-							<div class="content">
-								<h3>Teste</h3>
-							</div>
-						</div>
+						<?php } ?>
 			
-						<div class="swiper-slide box">
-							<div class="products-container"> 
-								<div class="product">	
-									<div class="icons">
-										<a href="#" class="fas fa-heart"></a>
-										<a class="fas fa-eye" data-name="p-2" ></a>
-									</div>
-								</div>
-							</div>
-							<div class="image">
-								<img src="img/livro.jpg"  alt="">
-							</div>
-							<div class="content">
-								<h3>Teste</h3>
-							</div>
-						</div>
-			
-						<div class="swiper-slide box">
-							<div class="products-container"> 
-								<div class="product">	
-									<div class="icons">
-										<a href="#" class="fas fa-heart"></a>
-										<a class="fas fa-eye" data-name="p-3" ></a>
-									</div>
-								</div>
-							</div>
-							<div class="image">
-								<img src="img/livro.jpg"  alt="">
-							</div>
-							<div class="content">
-								<h3>Teste</h3>
-							</div>
-						</div>
-			
-						<div class="swiper-slide box">
-							<div class="products-container"> 
-								<div class="product">	
-									<div class="icons">
-										<a href="#" class="fas fa-heart"></a>
-										<a class="fas fa-eye" data-name="p-4" ></a>
-									</div>
-								</div>
-							</div>
-							<div class="image">
-								<img src="img/livro.jpg"  alt="">
-							</div>
-							<div class="content">
-								<h3>Teste</h3>
-							</div>
-						</div>
-			
-						<div class="swiper-slide box">
-							<div class="products-container"> 
-								<div class="product">	
-									<div class="icons">
-										<a href="#" class="fas fa-heart"></a>
-										<a class="fas fa-eye" data-name="p-5" ></a>
-									</div>
-								</div>
-							</div>
-							<div class="image">
-								<img src="img/livro.jpg"  alt="">
-							</div>
-							<div class="content">
-								<h3>Teste</h3>
-							</div>
-						</div>
 					</div>
 					<div class="swiper-button-next"></div>
 					<div class="swiper-button-prev"></div>
@@ -168,6 +112,7 @@
 				<div class="swiper featured-slider">
 					<div class="swiper-wrapper">
 			
+					
 						<div class="swiper-slide box">
 							<div class="products-container"> 
 							<div class="product">	
@@ -186,85 +131,12 @@
 						</div>
 			
 			
-						<div class="swiper-slide box">
-							<div class="products-container"> 
-							<div class="product">	
-							<div class="icons">
-								<a href="#" class="fas fa-heart"></a>
-								<a class="fas fa-eye" data-name="p-2" ></a>
-									</div>
-								</div>
-							</div>
-							<div class="image">
-								<img src="img/livro.jpg"  alt="">
-							</div>
-							<div class="content">
-								<h3>Teste</h3>
-							</div>
-						</div>
-			
-						<div class="swiper-slide box">
-							<div class="products-container"> 
-							<div class="product">	
-							<div class="icons">
-								<a href="#" class="fas fa-heart"></a>
-								<a class="fas fa-eye" data-name="p-3" ></a>
-									</div>
-								</div>
-							</div>
-							<div class="image">
-								<img src="img/livro.jpg"  alt="">
-							</div>
-							<div class="content">
-								<h3>Teste</h3>
-							</div>
-						</div>
-			
-						<div class="swiper-slide box">
-							<div class="products-container"> 
-							<div class="product">	
-							<div class="icons">
-								<a href="#" class="fas fa-heart"></a>
-								<a class="fas fa-eye" data-name="p-4" ></a>
-									</div>
-								</div>
-							</div>
-							<div class="image">
-								<img src="img/livro.jpg"  alt="">
-							</div>
-							<div class="content">
-								<h3>Teste</h3>
-							</div>
-						</div>
-			
-						<div class="swiper-slide box">
-							<div class="products-container"> 
-							<div class="product">	
-							<div class="icons">
-								<a href="#" class="fas fa-heart"></a>
-								<a class="fas fa-eye" data-name="p-5" ></a>
-									</div>
-								</div>
-							</div>
-							<div class="image">
-								<img src="img/livro.jpg"  alt="">
-							</div>
-							<div class="content">
-								<h3>Teste</h3>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-button-next"></div>
-					<div class="swiper-button-prev"></div>
-				</div>
-			</div>
-		</div>
-
+						
 		<!-- FIM CARD SWIPPER ROMANCE-->
 
 
 
-		<!-- CARDS SWIPPER FICÇAO CIENTIFICA -->
+		<!-- CARDS SWIPPER FICÇAO CIENTIFICA 
 		<div class="container-teste">
 
 			<div class="featured">
@@ -367,14 +239,14 @@
 			</div>
 		</div>
 
-		<!-- FIM CARD SWIPPER FICÇAO CIENTIFICA-->
+		 FIM CARD SWIPPER FICÇAO CIENTIFICA-->
 
 
 
 
 
 
-		<!-- CARDS SWIPPER COMEDIA -->
+		<!-- CARDS SWIPPER COMEDIA 
 		<div class="container-teste">
 
 			<div class="featured">
@@ -477,14 +349,14 @@
 			</div>
 		</div>
 
-		<!-- FIM CARD SWIPPER COMEDIA-->
+		 FIM CARD SWIPPER COMEDIA-->
 
 
 
 
 
 
-		<!-- CARDS SWIPPER TERROR -->
+		<!-- CARDS SWIPPER TERROR 
 		<div class="container-teste">
 
 			<div class="featured">
@@ -587,7 +459,7 @@
 			</div>
 		</div>
 
-		<!-- FIM CARD SWIPPER TERROR-->
+		 FIM CARD SWIPPER TERROR -->
 
 
 	

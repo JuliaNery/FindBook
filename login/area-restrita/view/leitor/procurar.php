@@ -42,10 +42,10 @@
 					<i class='bx bx-filter'></i>
 				</button>
 				<span class="divider"></span>
-				<p><?php echo $_SESSION['nomeLeitor'] ?></p>
+				<p><?php if(!empty($_SESSION['loginLeitor'])){ echo ($_SESSION['loginLeitor']); }else{ echo $_SESSION['nomeLeitor'];}?></p>
 
 				<div class="profile">
-					<img src="img/foto.png" alt="">
+					<img src="<?php if(!empty($_SESSION['fotoLeitor'])){ echo "../../../../".$_SESSION['fotoLeitor']; }else{ echo("https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png");}?>" alt="">
 					<ul class="profile-link">
 						<li><a href="#"><i class='bx bxs-cog' ></i> configurações</a></li>
 						<li><a href="#" onclick="openModal01()" ><i class='bx bxs-log-out-circle' ></i> Sair</a></li>
@@ -65,13 +65,13 @@
 					</div>
 					<div class="cart-products">
 					   <form>
-						    <div class="input-field">
+						    <!-- <div class="input-field">
 							    <label> Categoria: </label>
 							    <select name="Digite">
 								   <option value="0">Selecione</option>
 								   <option value="0"><a href="">claudia leite</a> </option>
 							    </select>
-						    </div>
+						    </div> -->
 
 							<div class="input-field">
 								<label> Faixa etária: </label>
@@ -83,7 +83,19 @@
 
 							<div class="fields">
 								<div class="input-field">
-									<label>Cep:</label>
+									<label>Genero:</label>
+									<input type="text" placeholder="Digite aqui">
+								</div>
+							</div>
+							<div class="fields">
+								<div class="input-field">
+									<label>Editora:</label>
+									<input type="text" placeholder="Digite aqui">
+								</div>
+							</div>
+							<div class="fields">
+								<div class="input-field">
+									<label>Autor:</label>
 									<input type="text" placeholder="Digite aqui">
 								</div>
 							</div>
@@ -103,15 +115,15 @@
 							        <span>Biblioteca</span>
 							    </label>
 							    <br>
-							    <label for="option-3" class="option option-3">
+							    <!-- <label for="option-3" class="option option-3">
 							     	<div class="dot"></div>
 								    <span>Autor</span>
-							    </label>
+							    </label> -->
 							    <br>
-							    <label for="option-4" class="option option-4">
+							   <!--  <label for="option-4" class="option option-4">
 								    <div class="dot"></div>
 								    <span>Editora</span>
-							    </label>
+							    </label> -->
 						    </div>
 							</div>
 							<div class="cart-footer">
@@ -165,7 +177,7 @@
 						<img src="img/biblioteca.jpg" alt="">
 						<h3>Nome Biblioteca</h3>
 						<div class="buttons">
-							<a href="perfilBiblioteca.html" class="buy"><i class="fas fa-user"></i>Ver perfil</a>
+							<a href="perfilBiblioteca.php" class="buy"><i class="fas fa-user"></i>Ver perfil</a>
 							<a href="#" class="cart"> <i class="fas fa-location-arrow"></i> Ver endereço</a>
 						</div>
 					</div>

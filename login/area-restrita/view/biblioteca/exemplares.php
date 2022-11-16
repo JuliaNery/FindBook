@@ -30,7 +30,7 @@ try {
 
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<a href="#" class="brand"><i class='bx bxs-smile icon'></i> Biblioteca</a>
+		<a href="#" class="brand"><i class='bx bx-library'></i> Biblioteca</a>
 		<ul class="side-menu">
 			<li><a href="index.php"><i class='bx bxs-dashboard icon'></i> Dashboard</a></li>
 			<li class="divider" data-text="Biblioteca">Main</li>
@@ -96,7 +96,7 @@ try {
 								<tr>
 									<td>
 										<div class="user">
-											<img class="user-image" src="img/livro.jpg" alt="">
+											<img class="user-image" src="../<?php echo $linhas['capaLivro'] ?>" alt="">
 										</div>
 									</td>
 									<td><?php echo $linhas['nomeLivro'] ?></td>
@@ -176,7 +176,7 @@ try {
 							<div id="new">
 								<div class="close-preview-js close-preview">x</div>
 							</div>
-							<img src="https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png" alt="Sem imagem">
+							<img src="<?php echo $linhas['capaLivro'] ?>" alt="Sem imagem">
 						</div>
 						<br>
 						<input id="file-preview-js" type="file" accept="image/*" onchange="loaderFile(event)"><br><br>
@@ -248,8 +248,9 @@ try {
 		<div id="modal-container" class="modal-container">
 			<div class="modal">
 				<button class="fechar" id="fechar">X</button>
+				<form action="../../controller/cadastra-exemplar.php" method="post">
 				<div class="container">
-					<form action="../../controller/cadastra-exemplar.php" method="post">
+					
 						<div class="wrapper">
 							<div class="title">
 								Cadastre seu exemplar:
@@ -285,7 +286,7 @@ try {
 		</div>
 		<br><br>
 
-
+		
 		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 		<script src="js/sidebar.js"></script>
 		<script src="js/modalFoto.js"></script>

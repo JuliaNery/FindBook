@@ -1,4 +1,5 @@
 <?php
+    header('Location: ../../loginCadastro/cadastroUsuario.php');
     require_once("../model/conexao.php");
     require_once("../model/leitor.php");
 

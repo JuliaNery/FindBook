@@ -37,14 +37,14 @@
 				</div>
 			</form>
 			<span class="divider"></span>
-			<p><?php echo $_SESSION['nomeLeitor'] ?></p>
+			<p><?php if(!empty($_SESSION['loginLeitor'])){ echo ($_SESSION['loginLeitor']); }else{ echo $_SESSION['nomeLeitor'];}?></p>
 
 			<div class="profile">
-				<img src="img/foto.png" alt="">
+				<img src="<?php if(!empty($_SESSION['fotoLeitor'])){ echo "../../../../".$_SESSION['fotoLeitor']; }else{ echo("https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png");}?>" alt="">
 				<ul class="profile-link">
 					<li><a href="#"><i class='bx bxs-user-circle icon' ></i><div class="editar">editar senha</div></a></li>
 					<li><a href="#"><i class='bx bxs-cog' ></i> configurações</a></li>
-					<li><a href="#" onclick="openModal01()"><i class='bx bxs-log-out-circle' ></i> Sair</a></li>
+					<li><a href="#" onclick="openModal01()"><i class='bx bxs-log-out-circle'></i> Sair</a></li>
 				</ul>
 				</div>
 		</nav>
@@ -56,24 +56,27 @@
 					<i class='bx bx-chevrons-up scroll__top__icon'></i>
 				</a>
 
-		        <!-- PERFIL BIBLIOTECA -->
+		        <!-- PERFIL user -->
 				<section class="seccion-perfil-usuario">
 					<div class="perfil-usuario-header">
 						<div class="perfil-usuario-portada">
 							<div class="perfil-usuario-avatar">
-								<img src="https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png" alt="Sem imagem">
+								<img src="<?php if(!empty($_SESSION['fotoLeitor'])){ echo "../../../../".$_SESSION['fotoLeitor']; }else{ echo("https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png");}?>" style=""alt="Sem imagem">
 							</div>
 						</div>
+						<!-- https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png -->
 					</div>
 					<div class="perfil-usuario-body">
 						<div class="perfil-usuario-bio">
-							<h3 class="titulo"><?php echo $_SESSION['nomeLeitor'] ?></h3>
+							<h3 class="titulo"><?php if(!empty($_SESSION['loginLeitor'])){ echo ($_SESSION['loginLeitor']); }else{ echo $_SESSION['nomeLeitor'];}?></h3>
 							<div class="perfil-usuario-footer">
 								<ul class="lista-datos">
-								    <h4><?php echo $_SESSION['nomeLeitor'] ?></h4>
+								    <li><i class="fas fa-user-alt"></i><?php echo $_SESSION['nomeLeitor'] ?></li>
+									<li><i class="fas fa-restroom"></i> <?php echo $_SESSION['generoLeitor'] ?></li>
 								</ul> 
 								<ul class="lista-datos">
 									<li><i class='bx bxs-envelope' ></i><?php echo $_SESSION['emailLeitor'] ?></li>
+									<li><i class='icono fas fa-calendar-alt' ></i><?php echo $_SESSION['dtNascLeitor'] ?></li>
 								</ul> 
 							</div>
 								<div onclick="openModal6()" class="btn">Editar</div>
@@ -85,7 +88,7 @@
 							<div class="modal6">
 							<center><h2>Edite seu perfil</h2></center>
 							<hr />
-							<form action="../../controller/update-leitor.php" method="post">
+							<form action="../../controller/update-leitor.php" enctype="multipart/form-data" method="post">
 								<div class="form first">
 									<div class="details personal"><br>
 										<p>As informações adicionadas abaixo apareceram em seu perfil:</p>
@@ -100,49 +103,48 @@
 										<div id="new">
 											<div class="close-preview-js close-preview">x</div>
 										</div>
-										<img src="https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png" alt="Sem imagem">
+										<img src="<?php if(!empty($_SESSION['fotoLeitor'])){ echo "../../../../".$_SESSION['fotoLeitor']; }else{ echo("https://jamesrmoro.me/wp-content/uploads/2021/02/profile.png");}?>" style="height: 90px; width:90px;"  alt="Sem imagem">
 									</div>
-									<br>
-									<input id="file-preview-js" type="file" accept="image/*" onchange="loaderFile(event)">
+									<input id="file-preview-js" type="file" accept="image/*" name="foto" onchange="loaderFile(event)"  required>
 									<div class="fields">
 										<div class="input-field">
 											<label> Nome:</label>
-											<input type="text" name="nome" placeholder="Nome">
+											<input type="text" name="nome" value="<?php echo $_SESSION['nomeLeitor'] ?>" required>
 										</div>
 										<div class="input-field">
 											<label> Apelido:</label>
-											<input type="text" name="nick" placeholder="Nome">
+											<input type="text" name="nick" <?php if(!empty($_SESSION['loginLeitor'])){ echo ('value="'.$_SESSION['loginLeitor'].'"'); }else{ echo("placeholder='Apelido'");}?> required>
 										</div>
 										<div class="input-field">
 											<label>Email: </label>
-											<input type="text" name="email" placeholder="Nome">
+											<input type="text" name="email" value="<?php echo $_SESSION['emailLeitor'] ?>" required>
 										</div>
 										<div class="input-field">
 											<label>CPF:</label>
-											<input type="text" name="cpf" placeholder="Nome">
+											<input type="text" name="cpf" <?php if(!empty($_SESSION['cpfLeitor'])){ echo ('value="'.$_SESSION['cpfLeitor'].'"'); }else{ echo("placeholder='CPF'");}?> required>
 										</div>
 										<div class="input-field">
 											<label>RG:</label>
-											<input type="text" name="rg" placeholder="Nome">
+											<input type="text" name="rg"  <?php if(!empty($_SESSION['rgLeitor'])){ echo ('value="'.$_SESSION['rgLeitor'].'"'); }else{ echo("placeholder='RG'");}?> required>
 					    				</div>
 										<div class="input-field">
 											<label>Data de nascimento:</label>
-											<input type="date" name="dtNasc" placeholder="Nome">
+											<input type="date" name="dtNasc"  <?php if(!empty($_SESSION['dtNascLeitor'])){ echo ('value="'.$_SESSION['dtNascLeitor'].'"'); }else{ echo("placeholder='Nome'");}?> required>
 										</div>
 										<div class="input-field">
 											<label>Genero:</label>
-											<select name="genero">
+											<select name="genero" required>
 									     		<option value="Feminino">Feminino</option>
-												<option value="Masculino"><a href="">Masculino</a> </option>
+												<option value="Masculino">Masculino</option>
 							    			</select>
 										</div>
 									</div>
 								</div>
+								<div class="btns">
+										<button class="btnOK">Alterar</button>
+										<button class="btnClose" type="" onclick="closeModal6()">Fechar</button>
+									</div>
 							</form>
-							<div class="btns">
-									<button class="btnOK">Alterar</button>
-									<button class="btnClose" type="" onclick="closeModal6()">echar</button>
-								</div>
 							</div>
 					    </div>
 					    <!-- FIM MODAL FORMULARIO PERFIL -->

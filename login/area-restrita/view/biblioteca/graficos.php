@@ -2,6 +2,8 @@
     include_once('../../controller/valida-biblioteca.php');
 
 	require_once("../../model/exemplar.php");
+	
+	
 
 	try{
 		$Exemplar = new Exemplar();
@@ -14,6 +16,11 @@
 
 	}catch (Exception $e) {
 	echo $e->getMessage();
+	}
+	$n = 0; 
+	foreach ($qtdLivro as $livro) {
+                            
+		$n++;
 }
 ?>
 <!DOCTYPE html>
@@ -31,7 +38,7 @@
 	
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<a href="#" class="brand"><i class='bx bxs-smile icon'></i> Biblioteca</a>
+		<a href="#" class="brand"><i class='bx bx-library'></i> Biblioteca</a>
 		<ul class="side-menu">
 			<li><a href="index.php"><i class='bx bxs-dashboard icon' ></i> Dashboard</a></li>
 			<li class="divider" data-text="Biblioteca">Main</li>
@@ -76,7 +83,7 @@
 	 var data = google.visualization.arrayToDataTable([
 	   ["Element", "Density", { role: "style" } ],
 	   ["Exemplar", <?php foreach ($qtdExemplar as $a) {echo ($a['qtd']);}?>, "#FFDEAD"],
-	   ["Livros", <?php foreach ($qtdExemplar as $a) {echo ($a['qtd']);}?>, "DEB887"],
+	   ["Livros", <?php  echo ($n);?>, "DEB887"],
 	   ["Disponiveis", <?php foreach ($qtdExemplar as $a) {echo ($a['qtd']);}?>, "F4A460"],
 	   ["Alugados", 0, "color: #EEE8AA"]
 	 ]);
