@@ -25,7 +25,7 @@ include_once('../../controller/valida-biblioteca.php');
 	</a>
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<a href="#" class="brand"><i class='bx bx-library'></i> Biblioteca</a>
+		<a href="#" class="brand"><i class='bx bx-library'></i>Biblioteca</a>
 		<ul class="side-menu">
 			<li><a href="index.php"><i class='bx bxs-dashboard icon'></i> Dashboard</a></li>
 			<li class="divider" data-text="Biblioteca">Main</li>
