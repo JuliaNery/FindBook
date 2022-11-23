@@ -30,11 +30,11 @@
         }
 
         //ID Biblioteca
-        public function getIdBiblioteca(){
-            return $this->idBiblioteca;
+        public function getBiblioteca(){
+            return $this->biblioteca;
         }
-        public function setIdBiblioteca($idBiblioteca){
-            $this->idBiblioteca = $idBiblioteca;
+        public function setBiblioteca($biblioteca){
+            $this->biblioteca = $biblioteca;
         }
 
         //ID Livro
@@ -47,21 +47,40 @@
 
         public function cadastrar($Exemplar){
             $conexao = Conexao::conectar();
+        
+            $querySelect = $conexao->prepare("SELECT numExemplar, idBiblioteca FROM tbExemplar where numExemplar = ? AND idBiblioteca = ?");
+            $querySelect ->bindValue(1, $Exemplar->getNumExemplar());
+            $querySelect ->bindValue(2, $Exemplar->getBiblioteca()->getIdBiblioteca());
 
-            $stmt = $conexao->prepare("INSERT INTO tbExemplar(numExemplar, idBiblioteca, idLivro) 
-            VALUES(?, ?, ?)");
-
-            $stmt->bindValue(1, $Exemplar->getNumExemplar());
-            $stmt->bindValue(2, $Exemplar->getIdBiblioteca()->getIdBiblioteca());
-            $stmt->bindValue(3, $Exemplar->getIdLivro()->getIdLivro());
             
-            $stmt->execute();
+            $querySelect->execute();
+            
+            if($querySelect->rowCount() == 0){
+                $stmt = $conexao->prepare("INSERT INTO tbExemplar(numExemplar, idBiblioteca, idLivro) 
+                VALUES(?, ?, ?)");
+    
+                $stmt->bindValue(1, $Exemplar->getNumExemplar());
+                $stmt->bindValue(2, $Exemplar->getBiblioteca()->getIdBiblioteca());
+                $stmt->bindValue(3, $Exemplar->getIdLivro()->getIdLivro());
+                
+                $stmt->execute();
+
+                $result = 'Biblioteca Cadastrada com sucesso';
+                $_SESSION['cadastroExemplar'] = $result;
+
+                return $_SESSION['cadastroExemplar'];
+            }else{
+                $result = 'Biblioteca já cadastrado, tente novemente.';
+                $_SESSION['cadastroExemplar'] = $result;
+                
+                return $_SESSION['cadastroExemplar'];
+            } 
         }
 
         public function listar(){
             $conexao = Conexao::conectar();
            
-             $stmt = $conexao->prepare("SELECT * FROM vwExemplar where nomeBiblioteca = ?");
+             $stmt = $conexao->prepare("SELECT * FROM vwExemplar where nomeBiblioteca = ? order by nomeLivro");
              $stmt ->bindValue(1, $_SESSION['nomeBiblioteca']);
 
  
@@ -72,6 +91,20 @@
                return $lista;
             }
 
+        }
+        public function ultimosAdic(){
+            $conexao = Conexao::conectar();
+    
+                $stmt = $conexao->prepare("SELECT * from vwLivroBiblioteca 
+                    where idExemplar > (SELECT MAX(idExemplar) - ?  FROM tbexemplar)  AND idBiblioteca = ? order by idExemplar desc");
+                    $stmt ->bindValue(1, $_SESSION['contador']);
+                    $stmt ->bindValue(2, $_SESSION['idBiblioteca']);
+    
+                    $stmt->execute();
+
+                $lista = $stmt->fetchAll();
+                return $lista;
+          
         }
         public function contador(){
             $conexao = Conexao::conectar();
@@ -91,5 +124,6 @@
             $num = $stmt->fetchAll();
             return $num;
         }
+
     }
 ?>

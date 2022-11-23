@@ -11,6 +11,8 @@
     unset($_SESSION['senhaLeitor']);
     unset($_SESSION['emailLeitor']);
     unset($_SESSION['idLeitor']);
+    unset($_SESSION['contador']);
+   
 
 
     session_destroy();

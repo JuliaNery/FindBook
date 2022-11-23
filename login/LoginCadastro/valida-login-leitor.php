@@ -12,7 +12,7 @@
 
             if($leitor->login($email, $senha) == true){
                 if(isset($_SESSION['idLeitor'])){
-                    header('Location: ../area-restrita/view/leitor/paginaInicial.php'); 
+                    header('Location: ../area-restrita/view/leitor/telaInicial.php'); 
 
                 }else{
                     header('Location: loginUsuario.php');

@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <!--=== Coding by CodingLab | www.codinglabweb.com === -->
 <html lang="en">
@@ -22,6 +25,14 @@
 
     <title>Cadastrar biblioteca </title>
 
+    <script>
+        function cadastro()
+        {
+            alert("<?php echo($_SESSION['cadastro']); ?>");
+        }
+
+        <?php session_destroy(); ?>
+    </script>
     <script type="text/javascript" src="../../js/jquery-1.2.6.pack.js"></script>
     <script type="text/javascript" src="../../js/jquery.maskedinput-1.1.4.pack.js"></script>
     <script type="text/javascript">
@@ -99,7 +110,7 @@
 
 
                     <div class="buttons">
-                        <button class="cadastrar">
+                        <button onclick="cadastro()" class="cadastrar">
                             <span class="btnText">Cadastrar</span>
                             <i class="uil uil-navigator"></i>
                         </button>

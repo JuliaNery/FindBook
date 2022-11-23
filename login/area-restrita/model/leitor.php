@@ -181,6 +181,7 @@
         
         
         }
+
         public function update($Leitor){
             $conexao = Conexao::conectar();
             
@@ -256,5 +257,40 @@
                 $lista = $resultado->fetchAll();
                 return $lista;
         } 
+
+        public function alteraSenha($Leitor){
+            $conexao = Conexao::conectar();
+            
+            
+            if($_SESSION['senhaLeitor'] == $Leitor->getSenhaLeitor()){
+                $stmt = $conexao->prepare("UPDATE tbLivro SET senhaLeitor = ? where idLeitor = ?");
+                $stmt ->bindValue(1, $Leitor->getSenhaLeitor()); 
+                $stmt ->bindValue(2, $Leitor->getIdLeitor()); 
+    
+                $stmt->execute();
+                session_start();
+
+                $result = "Senha alterada com sucesso!";
+                $_SESSION['alteraSenha'] = $result;
+
+                return $_SESSION['alteraSenha'];
+            }else{
+                session_start();
+
+                $result = "Senha incorreta, verifique os dados e tente novamente.";
+                $_SESSION['alteraSenha'] = $result;
+
+                return $_SESSION['alteraSenha'];
+            }
+        }
+
+        public function delete($Leitor){
+            $conexao = Conexao::conectar();
+
+            $stmt = $conexao->prepare("DELETE FROM tbLeitor where idLeitor = ?");
+            $stmt ->bindValue(1, $Leitor->getIdLeitor()); 
+
+            $stmt->execute();
+        }
     }   
 ?>

@@ -138,31 +138,51 @@
         public function cadastrar($Biblioteca){
 
             $conexao = Conexao::conectar();
-            
-            $stmt = $conexao->prepare("INSERT INTO tbBiblioteca (nomeBiblioteca, 
-            ruaBiblioteca, numBiblioteca, compBiblioteca, cepBiblioteca, bairroBiblioteca, cidadeBiblioteca, emailBiblioteca, senhaBiblioteca) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            
-            $stmt->bindValue(1, $Biblioteca->getNomeBiblioteca());
-            
-            $stmt->bindValue(2, $Biblioteca->getRuaBiblioteca());
-            
-            $stmt->bindValue(3, $Biblioteca->getNumBiblioteca());
-            
-            $stmt->bindValue(4, $Biblioteca->getCompBiblioteca());
-            
-            $stmt->bindValue(5, $Biblioteca->getCepBiblioteca());
-            
-            $stmt->bindValue(6, $Biblioteca->getBairroBiblioteca());
 
-            $stmt->bindValue(7, $Biblioteca->getCidadeBiblioteca());
+            $querySelect = $conexao->prepare("SELECT nomeBiblioteca FROM tbBiblioteca where nomeBiblioteca = ?");
+            $querySelect ->bindValue(1, $Biblioteca->getNomeBiblioteca());
+            
+            $querySelect->execute();
+            
+            if($querySelect->rowCount() == 0){
+                $stmt = $conexao->prepare("INSERT INTO tbBiblioteca (nomeBiblioteca, 
+                ruaBiblioteca, numBiblioteca, compBiblioteca, cepBiblioteca, bairroBiblioteca, cidadeBiblioteca, emailBiblioteca, senhaBiblioteca) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                
+                $stmt->bindValue(1, $Biblioteca->getNomeBiblioteca());
+                
+                $stmt->bindValue(2, $Biblioteca->getRuaBiblioteca());
+                
+                $stmt->bindValue(3, $Biblioteca->getNumBiblioteca());
+                
+                $stmt->bindValue(4, $Biblioteca->getCompBiblioteca());
+                
+                $stmt->bindValue(5, $Biblioteca->getCepBiblioteca());
+                
+                $stmt->bindValue(6, $Biblioteca->getBairroBiblioteca());
 
-            $stmt->bindValue(8, $Biblioteca->getEmailBiblioteca());
+                $stmt->bindValue(7, $Biblioteca->getCidadeBiblioteca());
 
-            $stmt->bindValue(9, $Biblioteca->getSenhaBiblioteca());
+                $stmt->bindValue(8, $Biblioteca->getEmailBiblioteca());
+
+                $stmt->bindValue(9, $Biblioteca->getSenhaBiblioteca()); 
+                
+                $stmt->execute();
+
+                session_start();
+                $result = 'Biblioteca Cadastrada com sucesso';
+                $_SESSION['cadastro'] = $result;
+
+                return $_SESSION['cadastro'];
+            }else{
+                session_start();
+                $result = 'Biblioteca já cadastrado, tente novemente.';
+                $_SESSION['cadastro'] = $result;
+                
+                return $_SESSION['cadastro'];
+            }
             
             
-            $stmt->execute();
         } 
 
         
@@ -191,6 +211,7 @@
                 $_SESSION['cepBiblioteca'] = $dado['cepBiblioteca'];
                 $_SESSION['fotoBiblioteca'] = $dado['fotoBiblioteca'];
                 $_SESSION['telBiblioteca'] = $dado['telBiblioteca']; 
+                $_SESSION['contador'] = 0;
                 
                 return true;
             }else{
@@ -202,28 +223,6 @@
         public function update($Biblioteca){
             $conexao = Conexao::conectar();
             
-            if(!empty($Biblioteca->getFotoBiblioteca())){
-                $stmt = $conexao->prepare("UPDATE tbBiblioteca 
-                    set nomeBiblioteca = ?, horarioAbertura = ?, horarioFechamento = ?, emailBiblioteca = ?,  fotoBiblioteca = ?,  telBiblioteca = ?
-                        where idBiblioteca = ?");
-
-                $stmt->bindValue(1, $Biblioteca->getNomeBiblioteca());
-                $stmt->bindValue(2, $Biblioteca->getHorarioAbertura());
-                $stmt->bindValue(3, $Biblioteca->getHorarioFechamento());
-                $stmt->bindValue(4, $Biblioteca->getEmailBiblioteca());
-                $stmt->bindValue(5, $Biblioteca->getFotoBiblioteca());
-                $stmt->bindValue(6, $Biblioteca->getTelBiblioteca());
-                $stmt->bindValue(7, $Biblioteca->getIdBiblioteca());
-
-                $stmt->execute();
-
-                $_SESSION['nomeBiblioteca'] = $Biblioteca->getNomeBiblioteca();
-                $_SESSION['horarioAbertura'] = $Biblioteca->getHorarioAbertura();
-                $_SESSION['horarioFechamento'] = $Biblioteca->getHorarioFechamento();
-                $_SESSION['emailBiblioteca'] = $Biblioteca->getEmailBiblioteca();
-                $_SESSION['fotoBiblioteca'] = $Biblioteca->getIdBiblioteca();
-                $_SESSION['telBiblioteca'] = $Biblioteca->getTelBiblioteca();
-            }else{
                 $stmt = $conexao->prepare("UPDATE tbBiblioteca 
                     set nomeBiblioteca = ?, horarioAbertura = ?, horarioFechamento = ?, emailBiblioteca = ?, telBiblioteca = ?
                         where idBiblioteca = ?");
@@ -243,7 +242,20 @@
                 $_SESSION['emailBiblioteca'] = $Biblioteca->getEmailBiblioteca();
                 $_SESSION['telBiblioteca'] = $Biblioteca->getTelBiblioteca();
 
-            }
+        }
+
+        public function updateFoto($Biblioteca){
+            $conexao = Conexao::conectar();
+
+            $stmt = $conexao->prepare("UPDATE tbBiblioteca 
+            set fotoBiblioteca = ?
+                where idBiblioteca = ?");
+
+            $stmt->bindValue(1, $Biblioteca->getFotoBiblioteca());
+            $stmt->bindValue(2, $Biblioteca->getIdBiblioteca());
+            $_SESSION['fotoBiblioteca'] = $Biblioteca->getFotoBiblioteca();
+
+            $stmt->execute();
         }
         
         public function contador(){

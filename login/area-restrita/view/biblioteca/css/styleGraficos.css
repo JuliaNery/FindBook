@@ -12,16 +12,25 @@
 	--dark-grey: #8D8D8D;
 	--light: #fff;
 	--dark: #000;
-	--green: #81D43A;
 	--light-green: #E3FFCB;
-	--blue: #1775F1;
 	--light-blue: #D0E4FF;
-	--dark-blue: #0C5FCD;
-	--red: #FC3B56;
 }
 
 html {
 	overflow-x: hidden;
+}
+
+
+html::-webkit-scrollbar{
+    width:0.5rem;
+}
+
+html::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+html::-webkit-scrollbar-thumb{
+    background: #da8d1a7e;
 }
 
 body {
@@ -470,4 +479,261 @@ hr {
 	  font-size: smaller;
 	}
    }
+
+
+   
+
+/* MODAL ALTERAR SENHA*/
+hr {
+	border: 0px;
+	border-top: 1px solid lightgray;
+  }
+  
+  .modal-container03 {
+	width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0000004b;
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    display: none;
+  }
+  
+  .modal03 {
+	display: flex;
+	flex-direction: column;
+	padding: 30px;
+	background-color: white;
+	border-radius: 10px;
+	width: 50%;
+   
+  }
+
+  .modal-container03  .modal03 h2{
+    text-align: center;
+    font-size: 25px;
+  }
+  
+  .active03 {
+	display: flex;
+  }
+  
+  .active03 .modal03 {
+	animation: modal03 .4s;
+  }
+  
+  @keyframes modal03 {
+	from {
+	  opacity: 0;
+	  transform: translate3d(0, -60px, 0);
+	}
+	to {
+	  opacity: 1;
+	  transform: translate3d(0, 0, 0);
+	}
+  }
+  
+  span {
+	margin: 10px auto;
+  font-size: 15px;
+  }
+  
+  .btns {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+  }
+  
+  .btns button {
+	font-size: medium;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+  }
+  
+  .btnOK03 {
+   background-color: rgb(231, 206, 136)!important;
+   margin-left: 74%;
+   position: relative;
+  }
+  
+  .btnClose03 {
+	background-color: #f3b75c9f!important;
+  margin-right: 5%;
+   }
+  
+   @media (max-width: 760px) {
+	.modal03 {
+	  padding: 10px;
+	  width: 95%;
+	}   
+  
+	span, .btns button {
+	  font-size: smaller;
+	}
+  .modal-container03 .modal03 span{
+    font-size: 15px;
+  }
+   }
+/* fim modal ALTERAR SENHA */
+
+
+
+/* MODAL EXCLUIR CONTA */
+hr {
+	border: 0px;
+	border-top: 1px solid lightgray;
+  }
+  
+  .modal-container02 {
+	width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0000004b;
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    display: none;
+  }
+  
+  .modal02 {
+	display: flex;
+	flex-direction: column;
+	padding: 30px;
+	background-color: white;
+	border-radius: 10px;
+	width: 50%;
+   
+  }
+  
+  .active02 {
+	display: flex;
+  }
+  
+  .active02 .modal02 {
+	animation: modal02 .4s;
+  }
+  
+  @keyframes modal02 {
+	from {
+	  opacity: 0;
+	  transform: translate3d(0, -60px, 0);
+	}
+	to {
+	  opacity: 1;
+	  transform: translate3d(0, 0, 0);
+	}
+  }
+  
+  span {
+	margin: 10px auto;
+  font-size: 15px;
+  }
+  
+  .btns {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+  }
+  
+  .btns button {
+	font-size: medium;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+  }
+  
+  .btnOK02 {
+   background-color: rgb(231, 206, 136)!important;
+   margin-left: 76%;
+   position: relative;
+  }
+  
+  .btnClose02 {
+	background-color: #f3b75c9f!important;
+  margin-right: 9%;
+   }
+  
+   @media (max-width: 760px) {
+	.modal02 {
+	  padding: 10px;
+	  width: 95%;
+	}   
+  
+	span, .btns button {
+	  font-size: smaller;
+	}
+  .modal-container02 .modal02 span{
+    font-size: 13px;
+  }
+   }
+/* MODAL EXCLUIR CONTA */
+
+
+/* FORM MODAL*/
+
+form .fields{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+form .fields .input-field{
+    display: flex;
+    width: calc(100% / 3 - 15px);
+    flex-direction: column;
+    margin: 4px 0;
+}
+.input-field label{
+    font-size: 15px;
+    font-weight: 500;
+    color: #2e2e2e;
+}
+.input-field input{
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 0 15px;
+    height: 42px;
+    margin: 8px 0;
+}
+.input-field input :focus{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.13);
+}
+
+/* FIM FORM MODAL */
+
+
+/* FORM MODAL RESPONSIVE */
+@media (max-width: 750px) {
+   .modal .container form{
+        overflow-y: scroll;
+    }
+   .modal .container form::-webkit-scrollbar{
+       display: none;
+    }
+   .modal  form .fields .input-field{
+        width: calc(100% / 2 - 15px);
+    }
+
+}
+
+@media (max-width: 550px) {
+  .modal  form .fields .input-field{
+        width: 100%;
+    }   
+}
+/* FORM MODAL RESPONSIVE FIM */
 

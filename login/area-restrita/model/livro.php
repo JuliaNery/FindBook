@@ -137,6 +137,36 @@
             return $lista;
         }
 
+        public function listarDest(){
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT * from vwLivro
+            where idLivro >  (SELECT MAX(idLivro) - 4  FROM tbLivro)
+                order by idLivro desc";
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetchAll();
+            return $lista;
+        }
+
+        public function listarAction(){
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT * from vwLivro
+            where idLivro >  (SELECT MAX(idLivro) - 4  FROM tbLivro) and  nomeGenero = ação
+                order by idLivro desc";
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetchAll();
+            return $lista;
+        }
+
+        public function listarRomance(){
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT * from vwLivro
+            where idLivro >  (SELECT MAX(idLivro) - 4  FROM tbLivro) and  nomeGenero = 'romance'
+                order by idLivro desc";
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetchAll();
+            return $lista;
+        }
+
         public function contador(){
             $conexao = Conexao::conectar();
             $stmt = $conexao->prepare("call spContaLivro(?)");

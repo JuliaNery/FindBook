@@ -3,17 +3,7 @@
     class Conexao
     {
         public static function conectar()
-        {
-            /*
-                $variavel = new PDO(
-                    tipo:host=local; 
-                    dbname=nome do banco,
-                    usuário de acesso ao banco, 
-                    senha de acesso ao banco
-                )
-            */
-
-            
+        {   
             $conexao = new PDO("mysql:host=localhost;
                                 dbname=bdbiblioteca", 
                                 "root",

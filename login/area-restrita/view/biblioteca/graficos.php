@@ -64,8 +64,9 @@
 			<div class="profile">
 				<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
 				<ul class="profile-link">
-					<li><a href="#"><i class='bx bxs-cog' ></i> Configurações</a></li>
-					<li><a href="#"  onclick="openModal01()"><i class='bx bxs-log-out-circle' ></i> Sair</a></li>
+					<li><a href="#" onclick="openModal03()"><i class='bx bx-edit-alt'></i> Alterar senha</a></li>
+					<li><a href="#" onclick="openModal02()"><i class='bx bxs-user-account'></i> Excluir conta</a></li>
+					<li><a href="#" onclick="openModal01()"><i class='bx bxs-log-out-circle'></i> Sair</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -73,7 +74,13 @@
 
 		<!-- MAIN -->
 		<main>
-			<h1 class="title">Análise</h1>
+		<h1 class="title">Análise</h1>
+			<ul class="breadcrumbs">
+				<li><a href="#">Home</a></li>
+				<li class="divider">/</li>
+				<li><a href="#" class="active">Análise</a></li>
+			</ul>
+
 			
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <script type="text/javascript">
@@ -127,10 +134,58 @@
   </div>
   <!-- FIM MODAL SAIR  -->
 
+  <!-- MODAL ALTERAR SENHA-->
+  <div class="modal-container03">
+            <div class="modal03">
+              <h2>Alterar senha</h2>
+              <hr /><br>
+            <form>
+              <div class="fields">
+
+                <div class="input-field">
+                    <label> Senha atual:</label>
+                    <input type="text" placeholder="Digite aqui">
+                </div>
+
+                <div class="input-field">
+                    <label> Crie uma nova senha:</label>
+                    <input type="password" placeholder="Digite aqui">
+                </div>
+
+                <div class="input-field">
+                    <label>Confirme a senha: </label>
+                    <input type="password" placeholder="Digite aqui">
+                </div>
+
+              </div> 
+            </form>
+              <div class="btns">
+                <button class="btnOK03" onclick="closeModal03()">Alterar</button>
+                <button class="btnClose03" onclick="closeModal03()">Voltar</button>
+              </div>
+            </div>
+        </div>
+        <!-- FIM MODAL ALTERAR SENHA -->
+
+			 <!-- MODAL EXCLUIR CONTA -->
+			<div class="modal-container02">
+            <div class="modal02">
+              <h2>Deseja realmente deletar esta conta?</h2>
+              <span>
+               Confirmação de exclusão da conta 'EMAIL DO LEITOR'. É impossível reverter essa ação! Todos os seus dados serão deletados do nosso sistema.  Deseja continuar e apagar a sua conta?
+              </span>
+              <div class="btns">
+                <button class="btnOK02" onclick="closeModal02()">Sim</button>
+                <button class="btnClose02" onclick="closeModal02()">Não</button>
+              </div>
+            </div>
+          </div>
+            <!-- FIM MODAL EXCLUIR CONTA  -->
+
 		</main>
 		<!-- MAIN -->
 	</section>
-	<!-- NAVBAR -->
+	<!-- SECTION -->
 
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<script src="js/sidebar.js"></script>
@@ -146,5 +201,32 @@
 	modal01.classList.remove('active')
 	}
 </script>
+
+<script>
+        //Modal alterar senha
+        const modal03 = document.querySelector('.modal-container03')
+
+        function openModal03() {
+        modal03.classList.add('active03')
+        }
+
+        function closeModal03() {
+        modal03.classList.remove('active03')
+        }
+    </script>
+
+	<script>
+        //Modal excluir conta
+        const modal02 = document.querySelector('.modal-container02')
+
+        function openModal02() {
+        modal02.classList.add('active02')
+        }
+
+        function closeModal02() {
+        modal02.classList.remove('active02')
+        }
+    </script>
+
 </body>
 </html>

@@ -54,5 +54,5 @@
 
     
 
-/*     header('Location: ../view/leitor/perfilUsuario.php');
- */?>
+    header('Location: ../view/leitor/perfilLeitor.php');
+?>
