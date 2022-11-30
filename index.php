@@ -1,3 +1,14 @@
+<?php
+require_once("login/area-restrita/model/livro.php");
+
+try {
+    $Livro = new Livro();
+
+    $listaLivro = $Livro->listarDest();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +25,9 @@
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- LINK ADICIONADO PARA OS MODAIS   -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/style.css">
@@ -203,9 +217,80 @@
 
 
 
-<!-- featured section starts  -->
+ <!-- CARDS GENEROS DESTAQUES -->
+ <section class="featured" id="destaques">
 
-<section class="featured" id="destaques">
+        <h1 class="heading"> <span>Destaques</span> </h1> <br><br><br>
+
+        <!-- CONTAINER CARDS -->
+        <div class="container">
+
+            <!-- CARDS -->
+            
+            <div class="products-container">
+                <?php foreach ($listaLivro as $linhas) {  ?>
+                    <div class="product" data-name="<?php echo $linhas['idLivro'] ?>">
+                        <img src="<?php echo $linhas['capaLivro'] ?>" alt="">
+                        <h3><?php echo $linhas['nomeLivro'] ?></h3>
+                    </div>
+                <?php } ?>
+            </div>
+            <!-- FIM CARDS -->
+
+        </div>
+        <!-- FIM CONTAINER CARDS -->
+
+</section>
+<!-- GENERO DESTAQUES CARDS -->
+
+                <!-- MODAL CARDS -->
+            <div class="products-preview">
+
+                <!-- MODAL P1 -->
+
+                <?php foreach ($listaLivro as $linhas) {  ?>
+                <div class="preview" data-target="<?php echo $linhas['idLivro'] ?>">
+
+                    <!-- CONTEUDO MODAL -->
+                    <div class="wrapper">
+                        <i class="fas fa-times"></i>
+                        <div class="left">
+                            <img src="<?php echo $linhas['capaLivro'] ?>" alt="" width="120">
+                            <h4><?php echo $linhas['nomeLivro'] ?></h4>
+                            <label style="color:#000;" for="">Genero:</label>
+                            <p><?php echo $linhas['nomeGenero'] ?></p>
+
+                            <label style="color:#000;" for="">Autor:</label>
+                            <p><?php echo $linhas['nomeAutor'] ?></p>
+
+                            <label style="color:#000;" for="">Editora:</label>
+                            <p><?php echo $linhas['nomeEditora'] ?></p>
+
+                            <label style="color:#000;" for="">Lançamento:</label>
+                            <p><?php echo $linhas['dtLancamento'] ?></p>
+                        </div>
+                        <div class="right">
+                            <div class="info">
+                                <h3>Sinopse</h3>
+                                <p><?php echo $linhas['sinopseLivro'] ?>
+                                <p>
+                            </div>
+                            <div class="buttons">
+                                <a href="login/LoginCadastro/loginUsuario.php" class="buy"><i class="fas fa-location-arrow"></i> -Localizar</a>
+                            <!--  <a href="#" class="buy"> <i class="fas fa-heart"></i> -Favoritar</a> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIM CONTEUDO MODAL -->
+
+                </div>
+                <?php } ?>
+                <!-- FIM MODAL P1 -->
+            </div>
+
+
+<!-- featured section starts  -->
+<!-- <section class="featured" id="destaques">
 
     <h1 class="heading"> <span>Destaques</span> </h1>
 
@@ -285,7 +370,7 @@
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
-</section>
+</section> -->
 <!-- featured section ends -->
 
 
@@ -326,7 +411,7 @@
                 <input type="email" placeholder="seu email">
             </div>
             <div class="inputBox">
-                <input type="number" placeholder="seu número">
+                <input type="text" placeholder="seu número">
                 <input type="text" placeholder="seu assunto">
             </div>
             <textarea placeholder="Digite uma mensagem..." cols="30" rows="10"></textarea>
@@ -426,5 +511,6 @@
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
 <script src="js/main.js"></script>
+<script src="js/modalHome.js"></script>
 </body>
 </html>
